@@ -1,0 +1,33 @@
+﻿@model LabelStation.Models.Reprint
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Re-print a License</h1>
+
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="LPNumber" class="control-label">Enter License to Re-print</label>
+                <input asp-for="LPNumber" class="form-control" maxlength="9" />
+                <span asp-validation-for="LPNumber" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary mt-2" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-controller="Home" asp-action="Index" class="btn btn-danger mt-2">Cancel</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
