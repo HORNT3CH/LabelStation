@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using LabelStation.Data;
 using LabelStation.Models;
+using System.Runtime.CompilerServices;
+using Microsoft.AspNetCore.Http.Features;
 
 namespace LabelStation.Controllers
 {
@@ -45,7 +47,7 @@ namespace LabelStation.Controllers
 
         // GET: BULabels/Create
         public IActionResult Create()
-        {
+        {            
             return View();
         }
 

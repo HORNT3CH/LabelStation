@@ -1,0 +1,83 @@
+﻿@model IEnumerable<LabelStation.Models.HudsonH1PWP>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ItemNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ProductionDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CodePartA)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CodePartB)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CodePartC)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Shift)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PrintQty)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MachineNumber)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ItemNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ProductionDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CodePartA)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CodePartB)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CodePartC)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Shift)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PrintQty)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MachineNumber)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.ID">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.ID">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.ID">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

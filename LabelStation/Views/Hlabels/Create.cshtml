@@ -1,0 +1,32 @@
+﻿@model LabelStation.Models.Hlabel
+
+@{
+    ViewData["Title"] = "Create";
+}
+<br />
+<h1 class="mt-5">Print Hesperia LPN Labels</h1>
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="PrintNumber" class="control-label">Quantity</label>
+                <input asp-for="PrintNumber" class="form-control" placeholder="Enter Number to Print"/>
+                <span asp-validation-for="PrintNumber" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Print" class="btn btn-primary mt-2" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a class="btn btn-danger mt-2" asp-controller="Home" asp-action="Index">Cancel</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

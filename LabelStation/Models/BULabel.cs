@@ -6,9 +6,9 @@
 
         public byte Print { get; set; }
 
-        public string? ItemNumber { get; set; }
+        public string? Item { get; set; }
 
-        public string? ItemDescription { get; set; }
+        public string? ItemDesc { get; set; }
 
         public int Quantity { get; set; }
 

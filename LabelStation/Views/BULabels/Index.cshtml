@@ -3,8 +3,8 @@
 @{
     ViewData["Title"] = "Index";
 }
-
-<h1>Index</h1>
+<br />
+<h1 class="mt-5">Index</h1>
 
 <p>
     <a asp-action="Create">Create New</a>
@@ -16,10 +16,10 @@
                 @Html.DisplayNameFor(model => model.Print)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.ItemNumber)
+                @Html.DisplayNameFor(model => model.Item)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.ItemDescription)
+                @Html.DisplayNameFor(model => model.ItemDesc)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Quantity)
@@ -37,10 +37,10 @@
                 @Html.DisplayFor(modelItem => item.Print)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.ItemNumber)
+                @Html.DisplayFor(modelItem => item.Item)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.ItemDescription)
+                @Html.DisplayFor(modelItem => item.ItemDesc)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Quantity)

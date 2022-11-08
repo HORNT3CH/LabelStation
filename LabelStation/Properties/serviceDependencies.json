@@ -23,6 +23,22 @@
     "mssql6": {
       "type": "mssql",
       "connectionId": "ConnectionStrings:BULabelContext"
+    },
+    "mssql7": {
+      "type": "mssql",
+      "connectionId": "ConnectionStrings:HLabelContext"
+    },
+    "mssql8": {
+      "type": "mssql",
+      "connectionId": "ConnectionStrings:ItemContext"
+    },
+    "mssql9": {
+      "type": "mssql",
+      "connectionId": "ConnectionStrings:HudsonH1PWPContext"
+    },
+    "mssql10": {
+      "type": "mssql",
+      "connectionId": "ConnectionStrings:AssociatesContext"
     }
   }
 }
