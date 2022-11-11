@@ -1,7 +1,7 @@
 ﻿@model LabelStation.Models.Reprint
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Reprints";
 }
 <br />
 <h1 class="mt-5">Re-print a License</h1>
@@ -16,6 +16,16 @@
                 <label asp-for="LPNumber" class="control-label">License Number</label>
                 <input asp-for="LPNumber" class="form-control" maxlength="9" placeholder="Enter LP Number"/>
                 <span asp-validation-for="LPNumber" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PrinterName" class="form-label">Printer Name</label>
+                <select asp-for="PrinterName" class="form-control">
+                    <option value="">Select Printer</option>
+                    <option value="HJ308_Clerks">HJ308 Clerks Office</option>
+                    <option value="HJ310_Clerks">HJ310 Clerks Office</option>
+                    <option value="Bartender_RCV">Receiving Zebra</option>
+                </select>
+                <span asp-validation-for="PrinterName" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Print" class="btn btn-primary mt-2" />

@@ -14,7 +14,9 @@ namespace LabelStation.Data
         {
         }
 
-        public DbSet<LabelStation.Models.BULabel> BULabel { get; set; } = default!;        
+        public DbSet<LabelStation.Models.BULabel> BULabel { get; set; } = default!;
+        
+        public DbSet<LabelStation.Models.ItemNumber> ItemNumber { get; set; } = default!;
 
     }
 }

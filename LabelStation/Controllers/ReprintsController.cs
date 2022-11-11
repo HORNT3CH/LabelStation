@@ -54,7 +54,7 @@ namespace LabelStation.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ID,LPNumber")] Reprint reprint)
+        public async Task<IActionResult> Create([Bind("ID,LPNumber,PrinterName")] Reprint reprint)
         {
             if (ModelState.IsValid)
             {
@@ -86,7 +86,7 @@ namespace LabelStation.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ID,LPNumber")] Reprint reprint)
+        public async Task<IActionResult> Edit(int id, [Bind("ID,LPNumber,PrinterName")] Reprint reprint)
         {
             if (id != reprint.ID)
             {

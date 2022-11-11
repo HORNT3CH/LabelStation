@@ -54,7 +54,7 @@ namespace LabelStation.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ID,PrintNumber")] Wlabel wlabel)
+        public async Task<IActionResult> Create([Bind("ID,PrintNumber,PrinterName")] Wlabel wlabel)
         {
             if (ModelState.IsValid)
             {
@@ -86,7 +86,7 @@ namespace LabelStation.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ID,PrintNumber")] Wlabel wlabel)
+        public async Task<IActionResult> Edit(int id, [Bind("ID,PrintNumber,PrinterName")] Wlabel wlabel)
         {
             if (id != wlabel.ID)
             {

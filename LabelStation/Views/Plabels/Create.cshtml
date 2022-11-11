@@ -1,7 +1,7 @@
 ﻿@model LabelStation.Models.Plabel
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "P Labels";
 }
 <br />
 <h1 class="mt-5">Print P Labels for Hudson Production</h1>
@@ -14,7 +14,7 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="PrintNumber" class="control-label">Quantity</label>
-                <input asp-for="PrintNumber" class="form-control" placeholder="Enter Number to Print" />
+                <input asp-for="PrintNumber" class="form-control" maxlength="3" placeholder="Enter Number to Print" />
                 <span asp-validation-for="PrintNumber" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -26,6 +26,7 @@
 
 <div>
     <a asp-controller="Home" asp-action="Index" class="btn btn-danger mt-2">Cancel</a>
+    <p class="mt-2 text-danger">This label prints to the Receiving Zebra Printer</p>
 </div>
 
 @section Scripts {

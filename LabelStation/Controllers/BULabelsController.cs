@@ -9,6 +9,7 @@ using LabelStation.Data;
 using LabelStation.Models;
 using System.Runtime.CompilerServices;
 using Microsoft.AspNetCore.Http.Features;
+using LabelStation.ViewModels;
 
 namespace LabelStation.Controllers
 {
@@ -48,7 +49,12 @@ namespace LabelStation.Controllers
         // GET: BULabels/Create
         public IActionResult Create()
         {            
-            return View();
+            var itemNumber = _context.ItemNumber.ToList();
+            var viewModel = new ItemNumberViewModel
+            {
+                ItemNumbers = itemNumber,
+            };
+            return View(viewModel);
         }
 
         // POST: BULabels/Create
