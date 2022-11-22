@@ -25,7 +25,9 @@ namespace LabelStation.Controllers
         {
             if (SearchText != "" && SearchText != null)
             {
+#pragma warning disable CS8602 // Dereference of a possibly null reference.
                 List<BULabel> names = _context.BULabel.Where(p => p.ItemNumber.Contains(SearchText)).ToList();
+#pragma warning restore CS8602 // Dereference of a possibly null reference.
 
                 const int pageSize = 10;
                 if (pg < 1)

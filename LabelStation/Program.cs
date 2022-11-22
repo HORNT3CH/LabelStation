@@ -2,6 +2,8 @@
 using Microsoft.Extensions.DependencyInjection;
 using LabelStation.Data;
 var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddDbContext<RailCarContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("RailCarContext") ?? throw new InvalidOperationException("Connection string 'RailCarContext' not found.")));
 
 builder.Services.AddDbContext<KanbanContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("KanbanContext") ?? throw new InvalidOperationException("Connection string 'KanbanContext' not found.")));
