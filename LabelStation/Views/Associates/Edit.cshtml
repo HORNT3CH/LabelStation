@@ -2,9 +2,10 @@
 
 @{
     ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/_Layout_Hudson.cshtml";
 }
 
-<h1>Edit</h1>
+<h1 class="mt-5">Edit</h1>
 
 <h4>Associates</h4>
 <hr />
@@ -19,14 +20,14 @@
                 <span asp-validation-for="FullName" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+                <input type="submit" value="Save" class="btn btn-primary mt-2" />
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a class="btn btn-secondary mt-2" asp-action="Index">Back to List</a>
 </div>
 
 @section Scripts {

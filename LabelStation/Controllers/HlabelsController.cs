@@ -60,7 +60,7 @@ namespace LabelStation.Controllers
             {
                 _context.Add(hlabel);
                 await _context.SaveChangesAsync();
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Hesperia", "Home");
             }
             return View(hlabel);
         }

@@ -1,0 +1,134 @@
+﻿@model LabelStation.Models.PWPLabels
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout_Hudson.cshtml";
+    var month = DateTime.Now.ToString("MM");
+    
+    switch (month) {
+        case "01":
+            month = "A";
+            break;
+        case "02":
+            month = "B";
+            break;
+        case "03":
+            month = "C";
+            break;
+        case "04":
+            month = "D";
+            break;
+        case "05":
+            month = "E";
+            break;
+        case "06":
+            month = "F";
+            break;
+        case "07":
+            month = "G";
+            break;
+        case "08":
+            month = "H";
+            break;
+        case "09":
+            month = "I";
+            break;
+        case "10":
+            month = "J";
+            break;
+        case "11":
+            month = "K";
+            break;
+        case "12":
+            month = "L";
+            break;
+    }
+}
+
+<h1 class="mt-5">Print PWP Labels</h1>
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Name" class="control-label">Select Associate</label>
+                @Html.DropDownListFor(n => n.Name, ViewBag.Associates as SelectList, "Select Associate", new { @class = "form-control"})
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ItemNumber" class="control-label">Select Item Number</label>
+                @Html.DropDownListFor(n => n.ItemNumber, ViewBag.ItemNumbers as SelectList, "Select Item", new { @class = "form-control"})
+                <span asp-validation-for="ItemNumber" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ProductionDate" class="control-label">Click to Select Date</label>
+                <input type="text" asp-for="ProductionDate" class="form-control datepicker" readonly/>
+                <span asp-validation-for="ProductionDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CodePartA" class="control-label"></label>
+                <input asp-for="CodePartA" value="@DateTime.Now.ToString("yy")" class="form-control" />
+                <span asp-validation-for="CodePartA" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CodePartB" class="control-label"></label>
+                <input asp-for="CodePartB" value="@month" class="form-control" />
+                <span asp-validation-for="CodePartB" class="text-danger"></span>
+            </div>            
+            <div class="form-group">
+                <label asp-for="CodePartC" class="control-label"></label>
+                <input asp-for="CodePartC" value="@DateTime.Now.ToString("dd")" class="form-control" />
+                <span asp-validation-for="CodePartC" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Shift" class="control-label">Status</label>
+                <select asp-for="Shift" class="form-control" required>
+                    <option value="">Select Shift</option>
+                    <option value="1">First</option>
+                    <option value="2">Second</option>
+                    <option value="3">Third</option>
+                    <option value="A">A-Crew</option>
+                    <option value="B">B-Crew</option>
+                    <option value="C">C-Crew</option>
+                    <option value="D">D-Crew</option>
+                </select>
+                <span asp-validation-for="Shift" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PrintQty" class="control-label"></label>
+                <input asp-for="PrintQty" maxlength="3" min="1" class="form-control" />
+                <span asp-validation-for="PrintQty" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MachineNumber" class="control-label"></label>
+                <input asp-for="MachineNumber" class="form-control" />
+                <span asp-validation-for="MachineNumber" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PrinterName" class="control-label">Status</label>
+                <select asp-for="PrinterName" class="form-control" required>
+                    <option value="">Select Printer</option>
+                    <option value="Rework_PWP">Rework PWP</option>
+                    <option value="H1_PWP">H1 PWP(NOT READY YET)</option>
+                    <option value="H2_PWP">H2 PWP(NOT READY YET)</option>
+                    <option value="INJ_PWP">INJ PWP(NOT READY YET)</option>
+                </select>
+                <span asp-validation-for="PrinterName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Print PWP" class="btn btn-primary mt-2" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a class="btn btn-secondary mt-2" asp-controller="Home" asp-action="Hudson">Back to List</a>
+</div>
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

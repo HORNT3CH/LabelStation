@@ -60,7 +60,7 @@ namespace LabelStation.Controllers
             {
                 _context.Add(jlabel);
                 await _context.SaveChangesAsync();
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Juarez", "Home");
             }
             return View(jlabel);
         }

@@ -7,25 +7,117 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using LabelStation.Data;
 using LabelStation.Models;
-using System.Runtime.CompilerServices;
-using Microsoft.AspNetCore.Http.Features;
-using LabelStation.ViewModels;
 
 namespace LabelStation.Controllers
 {
     public class BULabelsController : Controller
     {
-        private readonly BULabelContext _context;
+        private readonly BULabelsContext _context;
 
-        public BULabelsController(BULabelContext context)
+        public BULabelsController(BULabelsContext context)
         {
             _context = context;
         }
 
         // GET: BULabels
-        public async Task<IActionResult> Index()
+
+        public IActionResult Index(int pg = 1, string SearchText = "")
         {
-              return View(await _context.BULabel.ToListAsync());
+            if (SearchText != "" && SearchText != null)
+            {
+                List<BULabel> names = _context.BULabel.Where(p => p.ItemNumber.Contains(SearchText)).ToList();
+
+                const int pageSize = 10;
+                if (pg < 1)
+                {
+                    pg = 1;
+                }
+
+                int recsCount = names.Count();
+
+                var pager = new Pager(recsCount, pg, pageSize);
+
+                int recSkip = (pg - 1) * pageSize;
+
+                var data = names.Skip(recSkip).Take(pager.PageSize).ToList();
+
+                this.ViewBag.Pager = pager;
+
+                return View(data);
+            }
+            else
+            {
+                List<BULabel> items = _context.BULabel.ToList();
+
+                const int pageSize = 10;
+                if (pg < 1)
+                {
+                    pg = 1;
+                }
+
+                int recsCount = items.Count();
+
+                var pager = new Pager(recsCount, pg, pageSize);
+
+                int recSkip = (pg - 1) * pageSize;
+
+                var data = items.Skip(recSkip).Take(pager.PageSize).ToList();
+
+                this.ViewBag.Pager = pager;
+
+                return View(data);
+            }
+        }
+
+        // GET: BULabels/BackupReprint
+        public async Task<IActionResult> BackupReprint(int? id)
+        {
+            if (id == null || _context.BULabel == null)
+            {
+                return NotFound();
+            }
+
+            var bULabel = await _context.BULabel.FindAsync(id);
+            if (bULabel == null)
+            {
+                return NotFound();
+            }
+            return View(bULabel);
+        }
+
+        // POST: BULabels/Edit/5
+        // To protect from overposting attacks, enable the specific properties you want to bind to.
+        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> BackupReprint(int id, [Bind("ID,ItemNumber,ItemDescription,Print,Standard,Quantity,LPNumber,IsReprint")] BULabel bULabel)
+        {
+            if (id != bULabel.ID)
+            {
+                return NotFound();
+            }
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    _context.Update(bULabel);
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!BULabelExists(bULabel.ID))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                return RedirectToAction(nameof(Index));
+            }
+            return View(bULabel);
         }
 
         // GET: BULabels/Details/5
@@ -48,13 +140,8 @@ namespace LabelStation.Controllers
 
         // GET: BULabels/Create
         public IActionResult Create()
-        {            
-            var itemNumber = _context.ItemNumber.ToList();
-            var viewModel = new ItemNumberViewModel
-            {
-                ItemNumbers = itemNumber,
-            };
-            return View(viewModel);
+        {
+            return View();
         }
 
         // POST: BULabels/Create
@@ -62,7 +149,7 @@ namespace LabelStation.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ID,Print,ItemNumber,ItemDescription,Quantity,Standard")] BULabel bULabel)
+        public async Task<IActionResult> Create([Bind("ID,ItemNumber,ItemDescription,Print,Standard,Quantity")] BULabel bULabel)
         {
             if (ModelState.IsValid)
             {
@@ -94,7 +181,7 @@ namespace LabelStation.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ID,Print,ItemNumber,ItemDescription,Quantity,Standard")] BULabel bULabel)
+        public async Task<IActionResult> Edit(int id, [Bind("ID,ItemNumber,ItemDescription,Print,Standard,Quantity")] BULabel bULabel)
         {
             if (id != bULabel.ID)
             {
@@ -149,7 +236,7 @@ namespace LabelStation.Controllers
         {
             if (_context.BULabel == null)
             {
-                return Problem("Entity set 'BULabelContext.BULabel'  is null.");
+                return Problem("Entity set 'BULabelsContext.BULabel'  is null.");
             }
             var bULabel = await _context.BULabel.FindAsync(id);
             if (bULabel != null)

@@ -4,15 +4,19 @@
     {
         public int ID { get; set; }
 
-        public byte Print { get; set; }
+        public string? ItemNumber { get; set; }
 
-        public string? Item { get; set; }
+        public string? ItemDescription { get; set; }
 
-        public string? ItemDesc { get; set; }
+        public string? Print { get; set; }
+
+        public int Standard { get; set; }
 
         public int Quantity { get; set; }
 
-        public int Standard { get; set; }
+        public string? LPNumber { get; set; }
+
+        public string? IsReprint { get; set; }
 
     }
 }

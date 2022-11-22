@@ -2,16 +2,19 @@
 using Microsoft.Extensions.DependencyInjection;
 using LabelStation.Data;
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddDbContext<KanbanContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("KanbanContext") ?? throw new InvalidOperationException("Connection string 'KanbanContext' not found.")));
+builder.Services.AddDbContext<PWPLabelsContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("PWPLabelsContext") ?? throw new InvalidOperationException("Connection string 'PWPLabelsContext' not found.")));
+builder.Services.AddDbContext<BULabelsContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("BULabelsContext") ?? throw new InvalidOperationException("Connection string 'BULabelsContext' not found.")));
 builder.Services.AddDbContext<AssociatesContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("AssociatesContext") ?? throw new InvalidOperationException("Connection string 'AssociatesContext' not found.")));
-builder.Services.AddDbContext<HudsonH1PWPContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("HudsonH1PWPContext") ?? throw new InvalidOperationException("Connection string 'HudsonH1PWPContext' not found.")));
 builder.Services.AddDbContext<ItemContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("ItemContext") ?? throw new InvalidOperationException("Connection string 'ItemContext' not found.")));
 builder.Services.AddDbContext<HLabelContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("HLabelContext") ?? throw new InvalidOperationException("Connection string 'HLabelContext' not found.")));
-builder.Services.AddDbContext<BULabelContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("BULabelContext") ?? throw new InvalidOperationException("Connection string 'BULabelContext' not found.")));
 builder.Services.AddDbContext<ReprintContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("ReprintContext") ?? throw new InvalidOperationException("Connection string 'ReprintContext' not found.")));
 builder.Services.AddDbContext<JlabelContext>(options =>

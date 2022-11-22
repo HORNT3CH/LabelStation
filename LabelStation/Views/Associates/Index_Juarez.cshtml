@@ -1,0 +1,89 @@
+﻿@model IEnumerable<LabelStation.Models.Associates>
+
+@{
+    ViewData["Title"] = "Associates";
+    Layout = "~/Views/Shared/_Layout_Juarez.cshtml";
+
+    Pager pager1 = new Pager();
+    int pageNo = 0;
+    if (ViewBag.Pager != null)
+    {
+        pager1 = ViewBag.Pager;
+        pageNo = pager1.CurrentPage;
+    }
+}
+
+<h1 class="mt-5">Associates</h1>
+
+<p>
+    <a class="btn btn-primary" asp-action="Create_Juarez">Create New</a>
+</p>
+<div class="col-4 p-0 justify-content-end mb-2">
+    <form asp-controller="Associates" asp-action="Index_Juarez">
+        <span class="btn-group">
+            <input class="form-control" type="text" name="SearchText1" placeholder="Search Key" />
+            <input class="p-1 m-lg-2 btn btn-sm btn-info" type="submit" value="Search" />
+        </span>
+    </form>
+</div>
+<table class="table table-bordered table-striped w-auto">
+    <thead>
+        <tr>
+            <th>
+                Full Name
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.FullName)
+            </td>
+            <td>
+                <a class="btn btn-primary" asp-action="Edit_Juarez" asp-route-id="@item.ID">Edit</a> |
+                <a class="btn btn-warning" asp-action="Details_Juarez" asp-route-id="@item.ID">Details</a> |
+                <a class="btn btn-danger" asp-action="Delete_Juarez" asp-route-id="@item.ID">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+
+<div class="container">
+    @if (pager1.TotalPages > 0)
+    {
+        <ul class="pagination justify-content-end">
+
+            @if (pager1.CurrentPage > 1)
+            {
+                <li class="page-item">
+                    <a class="page-link" asp-controller="Associates" asp-action="Index_Juarez" asp-route-pg="1">First</a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" asp-controller="Associates" asp-action="Index_Juarez" asp-route-pg="@(pager1.CurrentPage - 1)">Previous</a>
+                </li>
+            }
+
+            @for (var pge = pager1.StartPage; pge <= pager1.EndPage; pge++)
+            {
+                <li class="page-item @(pge == pager1.CurrentPage ? "active" : "")">
+                    <a class="page-link" asp-controller="Associates" asp-action="Index_Juarez" asp-route-pg="@pge"> @pge </a>
+                </li>
+            }
+            @if (pager1.CurrentPage < pager1.TotalPages)
+            {
+                <li class="page-item">
+                    <a class="page-link" asp-controller="Associates" asp-action="Index_Juarez" asp-route-pg="@(pager1.CurrentPage + 1)">Next</a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" asp-controller="Associates" asp-action="Index_Juarez" asp-route-pg="@(pager1.TotalPages)">Last</a>
+                </li>
+
+            }
+        </ul>
+    }
+</div>
+
+

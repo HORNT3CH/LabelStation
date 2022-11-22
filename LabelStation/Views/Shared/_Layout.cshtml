@@ -20,58 +20,22 @@
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">                        
-                        <li class="nav-item">
-                            <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                Hudson
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" asp-area="" asp-controller="Plabels" asp-action="Create">P Labels</a></li>
-                                <li><a class="dropdown-item" asp-area="" asp-controller="Wlabels" asp-action="Create">W Labels</a></li>
-                                <li><a class="dropdown-item" asp-area="" asp-controller="RWlabels" asp-action="Create">RW Labels</a></li>
-                                <li><a class="dropdown-item" asp-area="" asp-controller="BULabels" asp-action="Create">BU Labels</a></li>
-                                @*<li><a class="dropdown-item" asp-area="" asp-controller="HudsonH1PWP" asp-action="Create">H1 PWP</a></li>*@
-                            </ul>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                Hesperia
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" asp-area="" asp-controller="HLabels" asp-action="Create">LPN Labels</a></li>
-                            </ul>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                Juarez
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" asp-area="" asp-controller="Jlabels" asp-action="Create">J Labels</a></li>
-                            </ul>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-light" asp-area="" asp-controller="Reprints" asp-action="Create">Reprint LP</a>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                Setup
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" asp-area="" asp-controller="ItemNumbers" asp-action="Index">Manage Items</a></li>
-                                <li><a class="dropdown-item" asp-area="" asp-controller="Associates" asp-action="Index">Manage Associates</a></li>
-                            </ul>
-                        </li>
-                    </ul>
-                </div>
+                <ul class="navbar-nav flex-grow-1">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Help Topics
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="~/HelpPages/HelpSystem.html" target="_blank">Open Help System</a></li>
+                        </ul>
+                    </li>
+                </ul>
             </div>
         </nav>
     </header>
     <div class="container">
         <main role="main" class="pb-3">
+            <br />
             @RenderBody()
         </main>
     </div>
@@ -87,6 +51,19 @@
     <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('.datepicker').datepicker({
+                changeMonth: true,
+                changeYear: true,
+                dateFormat: "mm/dd/yy",
+                yearRange: "-90:+00"
+            });
+        });
+    </script>
+    
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
+
+

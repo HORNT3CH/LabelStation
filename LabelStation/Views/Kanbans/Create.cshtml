@@ -1,0 +1,88 @@
+﻿@model LabelStation.Models.Kanban
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout_Hudson.cshtml";
+}
+
+<h1 class="mt-5">Create New BOM Item</h1>
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Print" class="control-label"></label>
+                <input asp-for="Print" class="form-control" />
+                <span asp-validation-for="Print" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="BOMID" class="control-label"></label>
+                <input asp-for="BOMID" class="form-control" />
+                <span asp-validation-for="BOMID" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ItemNumber" class="control-label"></label>
+                <input asp-for="ItemNumber" class="form-control" />
+                <span asp-validation-for="ItemNumber" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ItemDescription" class="control-label"></label>
+                <input asp-for="ItemDescription" class="form-control" />
+                <span asp-validation-for="ItemDescription" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PrintQty" class="control-label"></label>
+                <input asp-for="PrintQty" class="form-control" />
+                <span asp-validation-for="PrintQty" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FullName" class="control-label"></label>
+                <input asp-for="FullName" class="form-control" />
+                <span asp-validation-for="FullName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MachineNumber" class="control-label"></label>
+                <input asp-for="MachineNumber" class="form-control" />
+                <span asp-validation-for="MachineNumber" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ReOrderQty" class="control-label"></label>
+                <input asp-for="ReOrderQty" class="form-control" />
+                <span asp-validation-for="ReOrderQty" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="OrderQty" class="control-label"></label>
+                <input asp-for="OrderQty" class="form-control" />
+                <span asp-validation-for="OrderQty" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="LineLimit" class="control-label"></label>
+                <input asp-for="LineLimit" class="form-control" />
+                <span asp-validation-for="LineLimit" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ParentSKU" class="control-label"></label>
+                <input asp-for="ParentSKU" class="form-control" />
+                <span asp-validation-for="ParentSKU" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ParentDescription" class="control-label"></label>
+                <input asp-for="ParentDescription" class="form-control" />
+                <span asp-validation-for="ParentDescription" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a class="btn btn-secondary" asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

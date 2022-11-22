@@ -18,6 +18,21 @@ namespace LabelStation.Controllers
             return View();
         }
 
+        public IActionResult Hudson()
+        {
+            return View();
+        }
+
+        public IActionResult Hesperia()
+        {
+            return View();
+        }
+
+        public IActionResult Juarez()
+        {
+            return View();
+        }
+
         public IActionResult Privacy()
         {
             return View();

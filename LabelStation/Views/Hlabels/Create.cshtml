@@ -2,6 +2,7 @@
 
 @{
     ViewData["Title"] = "Hesperia LP";
+    Layout = "~/Views/Shared/_Layout_Hesperia.cshtml";
 }
 <br />
 <h1 class="mt-5">Print Hesperia LPN Labels</h1>
@@ -13,7 +14,7 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="PrintNumber" class="control-label">Quantity</label>
-                <input asp-for="PrintNumber" class="form-control" maxlength="3" placeholder="Enter Number to Print" />
+                <input asp-for="PrintNumber" class="form-control" maxlength="3" min="1" placeholder="Enter Number to Print" />
                 <span asp-validation-for="PrintNumber" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -24,7 +25,7 @@
 </div>
 
 <div>
-    <a class="btn btn-danger mt-2" asp-controller="Home" asp-action="Index">Cancel</a>
+    <a class="btn btn-danger mt-2" asp-controller="Home" asp-action="Hesperia">Cancel</a>
 </div>
 
 @section Scripts {

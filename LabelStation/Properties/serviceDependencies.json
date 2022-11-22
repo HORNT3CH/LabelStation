@@ -39,6 +39,22 @@
     "mssql10": {
       "type": "mssql",
       "connectionId": "ConnectionStrings:AssociatesContext"
+    },
+    "mssql11": {
+      "type": "mssql",
+      "connectionId": "ConnectionStrings:PWPLabelsContext"
+    },
+    "mssql12": {
+      "type": "mssql",
+      "connectionId": "ConnectionStrings:BULabelsContext"
+    },
+    "mssql13": {
+      "type": "mssql",
+      "connectionId": "ConnectionStrings:KanbanContext"
+    },
+    "mssql14": {
+      "type": "mssql",
+      "connectionId": "ConnectionStrings:RailCarContext"
     }
   }
 }
