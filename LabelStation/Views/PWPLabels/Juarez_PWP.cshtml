@@ -1,8 +1,9 @@
 ﻿@model LabelStation.Models.PWPLabels
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "PWP Labels Juarez";
     Layout = "~/Views/Shared/_Layout_Juarez.cshtml";
+    
     var month = DateTime.Now.ToString("MM");
     
     switch (month) {
@@ -64,22 +65,23 @@
             </div>
             <div class="form-group">
                 <label asp-for="ProductionDate" class="control-label">Click to Select Date</label>
-                <input type="text" asp-for="ProductionDate" class="form-control datepicker" readonly/>
+                <input id ="selectedDate" type="text" asp-for="ProductionDate" class="form-control datepicker" readonly />
                 <span asp-validation-for="ProductionDate" class="text-danger"></span>
             </div>
+            <a id="setCodes" class="btn btn-success mt-2">Select Date above and Set Codes</a>
             <div class="form-group">
                 <label asp-for="CodePartA" class="control-label"></label>
-                <input asp-for="CodePartA" value="@DateTime.Now.ToString("yy")" class="form-control" />
+                <input id="codePartA" asp-for="CodePartA" value="@DateTime.Now.ToString("yy")" class="form-control" />
                 <span asp-validation-for="CodePartA" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="CodePartB" class="control-label"></label>
-                <input asp-for="CodePartB" value="@month" class="form-control" />
+                <input id="codePartB" asp-for="CodePartB" value="@month" class="form-control" />
                 <span asp-validation-for="CodePartB" class="text-danger"></span>
             </div>            
             <div class="form-group">
                 <label asp-for="CodePartC" class="control-label"></label>
-                <input asp-for="CodePartC" value="@DateTime.Now.ToString("dd")" class="form-control" />
+                <input id="codePartC" asp-for="CodePartC" value="@DateTime.Now.ToString("%d")" class="form-control" />
                 <span asp-validation-for="CodePartC" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -98,7 +100,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="PrintQty" class="control-label"></label>
-                <input asp-for="PrintQty" maxlength="3" min="0" class="form-control" />
+                <input asp-for="PrintQty" maxlength="3" min="2" step="2" class="form-control" />
                 <span asp-validation-for="PrintQty" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -110,7 +112,7 @@
                 <label asp-for="PrinterName" class="control-label">Status</label>
                 <select asp-for="PrinterName" class="form-control" required>
                     <option value="">Select Printer</option>                    
-                    <option value="PWP_Juarez">Juarez PWP</option>
+                    <option value="Juarez_PWP">Juarez PWP</option>
                 </select>
                 <span asp-validation-for="PrinterName" class="text-danger"></span>
             </div>
@@ -122,7 +124,7 @@
 </div>
 
 <div>
-    <a class="btn btn-secondary mt-2" asp-controller="Home" asp-action="Juarez">Back to Juarez Home</a>
+    <a class="btn btn-danger mt-2" asp-controller="Home" asp-action="Juarez">Cancel</a>
 </div>
 
 

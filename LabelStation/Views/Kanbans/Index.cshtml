@@ -1,14 +1,14 @@
 ﻿@model IEnumerable<LabelStation.Models.Kanban>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Kanban";
     Layout = "~/Views/Shared/_Layout_Hudson.cshtml";
 
     Pager pager = new Pager();
     int pageNo = 0;
-    if (ViewBag.Pager != null)
+    if (ViewBag.SearchPager != null)
     {
-        pager = ViewBag.Pager;
+        pager = ViewBag.SearchPager;
         pageNo = pager.CurrentPage;
     }
 }
@@ -18,14 +18,9 @@
 <p>
     <a class="btn btn-primary" asp-action="Create">Create New BOM Item</a>
 </p>
-<div class="col-4 p-0 justify-content-end mb-2">
-    <form asp-controller="Kanbans" asp-action="Index">
-        <span class="btn-group">
-            <input class="form-control" type="text" name="SearchText" placeholder="Search Item Number" />
-            <input class="p-1 m-lg-2 btn btn-sm btn-info" type="submit" value="Search" />
-        </span>
-    </form>
-</div>
+
+<partial name="_pager" model="@pager" />
+
 <table class="table table-bordered table-striped table-responsive m-auto">
     <thead>
         <tr>
@@ -64,6 +59,9 @@
             </th>
             <th class="fit">
                 @Html.DisplayNameFor(model => model.ParentDescription)
+            </th>
+            <th class="fit">
+                @Html.DisplayNameFor(model => model.PrinterName)
             </th>
             <th class="fit">
                 Actions
@@ -108,7 +106,10 @@
             </td>
             <td class="fit">
                 @Html.DisplayFor(modelItem => item.ParentDescription)
-            </td>            
+            </td>
+            <td class="fit">
+                @Html.DisplayFor(modelItem => item.PrinterName)
+            </td>    
             <td class="fit">
                 <a class="btn btn-primary" asp-action="Edit" asp-route-id="@item.ID">Edit / Print</a>
                 @*<a class="btn btn-warning" asp-action="Details" asp-route-id="@item.ID">Details</a>*@
@@ -119,37 +120,3 @@
     </tbody>
 </table>
 
-<div class="container">
-    @if (pager.TotalPages > 0)
-    {
-        <ul class="pagination justify-content-end">
-
-            @if (pager.CurrentPage > 1)
-            {
-                <li class="page-item">
-                    <a class="page-link" asp-controller="Kanbans" asp-action="Index" asp-route-pg="1">First</a>
-                </li>
-                <li class="page-item">
-                    <a class="page-link" asp-controller="Kanbans" asp-action="Index" asp-route-pg="@(pager.CurrentPage - 1)">Previous</a>
-                </li>
-            }
-
-            @for (var pge = pager.StartPage; pge <= pager.EndPage; pge++)
-            {
-                <li class="page-item @(pge == pager.CurrentPage ? "active" : "")">
-                    <a class="page-link" asp-controller="Kanbans" asp-action="Index" asp-route-pg="@pge"> @pge </a>
-                </li>
-            }
-            @if (pager.CurrentPage < pager.TotalPages)
-            {
-                <li class="page-item">
-                    <a class="page-link" asp-controller="Kanbans" asp-action="Index" asp-route-pg="@(pager.CurrentPage + 1)">Next</a>
-                </li>
-                <li class="page-item">
-                    <a class="page-link" asp-controller="Kanbans" asp-action="Index" asp-route-pg="@(pager.TotalPages)">Last</a>
-                </li>
-
-            }
-        </ul>
-    }
-</div>

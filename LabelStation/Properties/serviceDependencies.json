@@ -55,6 +55,10 @@
     "mssql14": {
       "type": "mssql",
       "connectionId": "ConnectionStrings:RailCarContext"
+    },
+    "mssql15": {
+      "type": "mssql",
+      "connectionId": "ConnectionStrings:FlowerPotsContext"
     }
   }
 }

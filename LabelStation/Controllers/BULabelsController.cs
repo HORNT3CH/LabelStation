@@ -1,4 +1,5 @@
-﻿using System;
+﻿#nullable disable
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -19,56 +20,56 @@ namespace LabelStation.Controllers
             _context = context;
         }
 
-        // GET: BULabels
-
-        public IActionResult Index(int pg = 1, string SearchText = "")
+        private List<SelectListItem> GetPageSizes(int selectedPageSize = 5)
         {
+            var pagesSizes = new List<SelectListItem>();
+
+            if (selectedPageSize == 5)
+                pagesSizes.Add(new SelectListItem("5", "5", true));
+            else
+                pagesSizes.Add(new SelectListItem("5", "5"));
+
+            for (int lp = 10; lp <= 100; lp += 10)
+            {
+                if (lp == selectedPageSize)
+                { pagesSizes.Add(new SelectListItem(lp.ToString(), lp.ToString(), true)); }
+                else
+                    pagesSizes.Add(new SelectListItem(lp.ToString(), lp.ToString()));
+            }
+
+            return pagesSizes;
+        }
+
+        // GET: BULabels
+        public IActionResult Index(string SearchText = "", int pg = 1, int pageSize = 5)
+        {
+            List<BULabel> backupLabels;
+
+            if (pg < 1) pg = 1;
+
+
             if (SearchText != "" && SearchText != null)
             {
-#pragma warning disable CS8602 // Dereference of a possibly null reference.
-                List<BULabel> names = _context.BULabel.Where(p => p.ItemNumber.Contains(SearchText)).ToList();
-#pragma warning restore CS8602 // Dereference of a possibly null reference.
-
-                const int pageSize = 10;
-                if (pg < 1)
-                {
-                    pg = 1;
-                }
-
-                int recsCount = names.Count();
-
-                var pager = new Pager(recsCount, pg, pageSize);
-
-                int recSkip = (pg - 1) * pageSize;
-
-                var data = names.Skip(recSkip).Take(pager.PageSize).ToList();
-
-                this.ViewBag.Pager = pager;
-
-                return View(data);
+                backupLabels = _context.BULabel
+                .Where(p => p.ItemNumber.Contains(SearchText))
+                .ToList();
             }
             else
-            {
-                List<BULabel> items = _context.BULabel.ToList();
+                backupLabels = _context.BULabel.ToList();
 
-                const int pageSize = 10;
-                if (pg < 1)
-                {
-                    pg = 1;
-                }
+            int recsCount = backupLabels.Count();
 
-                int recsCount = items.Count();
+            int recSkip = (pg - 1) * pageSize;
 
-                var pager = new Pager(recsCount, pg, pageSize);
+            List<BULabel> retBackup = backupLabels.Skip(recSkip).Take(pageSize).ToList();
 
-                int recSkip = (pg - 1) * pageSize;
+            Pager SearchPager = new Pager(recsCount, pg, pageSize) { Action = "Index", Controller = "BULabels", SearchText = SearchText };
+            ViewBag.SearchPager = SearchPager;
 
-                var data = items.Skip(recSkip).Take(pager.PageSize).ToList();
+            this.ViewBag.PageSizes = GetPageSizes(pageSize);
 
-                this.ViewBag.Pager = pager;
+            return View(retBackup.ToList());
 
-                return View(data);
-            }
         }
 
         // GET: BULabels/BackupReprint

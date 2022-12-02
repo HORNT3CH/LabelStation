@@ -1,4 +1,5 @@
-﻿using System;
+﻿#nullable disable
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -19,53 +20,56 @@ namespace LabelStation.Controllers
             _context = context;
         }
 
-        // GET: Associates
-        public IActionResult Index(int pg = 1, string SearchText = "")
+        private List<SelectListItem> GetPageSizes(int selectedPageSize = 5)
         {
+            var pagesSizes = new List<SelectListItem>();
+
+            if (selectedPageSize == 5)
+                pagesSizes.Add(new SelectListItem("5", "5", true));
+            else
+                pagesSizes.Add(new SelectListItem("5", "5"));
+
+            for (int lp = 10; lp <= 100; lp += 10)
+            {
+                if (lp == selectedPageSize)
+                { pagesSizes.Add(new SelectListItem(lp.ToString(), lp.ToString(), true)); }
+                else
+                    pagesSizes.Add(new SelectListItem(lp.ToString(), lp.ToString()));
+            }
+
+            return pagesSizes;
+        }
+
+        // GET: Associates
+        public IActionResult Index(string SearchText = "", int pg = 1, int pageSize = 5)
+        {
+            List<Associates> associates;
+
+            if (pg < 1) pg = 1;
+
+
             if (SearchText != "" && SearchText != null)
             {
-                List<Associates> names = _context.Associates.Where(p => p.FullName.Contains(SearchText)).ToList();
-
-                const int pageSize = 10;
-                if (pg < 1)
-                {
-                    pg = 1;
-                }
-
-                int recsCount = names.Count();
-
-                var pager = new Pager(recsCount, pg, pageSize);
-
-                int recSkip = (pg - 1) * pageSize;
-
-                var data = names.Skip(recSkip).Take(pager.PageSize).ToList();
-
-                this.ViewBag.Pager = pager;
-
-                return View(data);
+                associates = _context.Associates
+                .Where(p => p.FullName.Contains(SearchText))
+                .ToList();
             }
             else
-            {
-                List<Associates> names = _context.Associates.ToList();
+                associates = _context.Associates.ToList();
 
-                const int pageSize = 10;
-                if (pg < 1)
-                {
-                    pg = 1;
-                }
+            int recsCount = associates.Count();
 
-                int recsCount = names.Count();
+            int recSkip = (pg - 1) * pageSize;
 
-                var pager = new Pager(recsCount, pg, pageSize);
+            List<Associates> retAssociates = associates.Skip(recSkip).Take(pageSize).OrderBy(m => m.FullName).ToList();
 
-                int recSkip = (pg - 1) * pageSize;
+            Pager SearchPager = new Pager(recsCount, pg, pageSize) { Action = "Index", Controller = "Associates", SearchText = SearchText };
+            ViewBag.SearchPager = SearchPager;
 
-                var data = names.Skip(recSkip).Take(pager.PageSize).ToList();
+            this.ViewBag.PageSizes = GetPageSizes(pageSize);
 
-                this.ViewBag.Pager = pager;
+            return View(retAssociates.ToList());
 
-                return View(data);
-            }
         }
 
         // GET: Associates/Details/5
@@ -201,56 +205,39 @@ namespace LabelStation.Controllers
           return _context.Associates.Any(e => e.ID == id);
         }
 
-        // Juarez Create
-        public IActionResult Index_Juarez(int pg = 1, string SearchText1 = "")
+        // GET: Associates Index Juarez
+        public IActionResult Index_Juarez(string SearchText = "", int pg = 1, int pageSize = 5)
         {
-            if (SearchText1 != "" && SearchText1 != null)
+            List<Associates> associates;
+
+            if (pg < 1) pg = 1;
+
+
+            if (SearchText != "" && SearchText != null)
             {
-                List<Associates> names1 = _context.Associates.Where(p => p.FullName.Contains(SearchText1)).ToList();
-
-                const int pageSize = 10;
-                if (pg < 1)
-                {
-                    pg = 1;
-                }
-
-                int recsCount = names1.Count();
-
-                var pager1 = new Pager(recsCount, pg, pageSize);
-
-                int recSkip = (pg - 1) * pageSize;
-
-                var data = names1.Skip(recSkip).Take(pager1.PageSize).ToList();
-
-                this.ViewBag.Pager = pager1;
-
-                return View(data);
+                associates = _context.Associates
+                .Where(p => p.FullName.Contains(SearchText))                
+                .ToList();
             }
             else
-            {
-                List<Associates> names1 = _context.Associates.ToList();
+                associates = _context.Associates.ToList();
 
-                const int pageSize = 10;
-                if (pg < 1)
-                {
-                    pg = 1;
-                }
+            int recsCount = associates.Count();
 
-                int recsCount = names1.Count();
+            int recSkip = (pg - 1) * pageSize;
 
-                var pager1 = new Pager(recsCount, pg, pageSize);
+            List<Associates> retAssociates = associates.Skip(recSkip).Take(pageSize).OrderBy(m => m.FullName).ToList();
 
-                int recSkip = (pg - 1) * pageSize;
+            Pager SearchPager = new Pager(recsCount, pg, pageSize) { Action = "Index_Juarez", Controller = "Associates", SearchText = SearchText };
+            ViewBag.SearchPager = SearchPager;
 
-                var data = names1.Skip(recSkip).Take(pager1.PageSize).ToList();
+            this.ViewBag.PageSizes = GetPageSizes(pageSize);
 
-                this.ViewBag.Pager = pager1;
+            return View(retAssociates.ToList());
 
-                return View(data);
-            }
         }
 
-        // GET: Associates/Details/5
+        // GET: Associates/Details/5 Juarez
         public async Task<IActionResult> Details_Juarez(int? id)
         {
             if (id == null || _context.Associates == null)
@@ -274,7 +261,7 @@ namespace LabelStation.Controllers
             return View();
         }
 
-        // POST: Associates/Create
+        // POST: Associates/Create Juarez
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -306,7 +293,7 @@ namespace LabelStation.Controllers
             return View(associates);
         }
 
-        // POST: Associates/Edit/5
+        // POST: Associates/Edit/5 Juarez
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -336,12 +323,12 @@ namespace LabelStation.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Index_Juarez", "Associates");
             }
             return View(associates);
         }
 
-        // GET: Associates/Delete/5
+        // GET: Associates/Delete/5 Juarez
         public async Task<IActionResult> Delete_Juarez(int? id)
         {
             if (id == null || _context.Associates == null)
@@ -357,6 +344,25 @@ namespace LabelStation.Controllers
             }
 
             return View(associates);
+        }
+
+        // POST: Associates/Delete/5
+        [HttpPost, ActionName("Delete_Juarez")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed_Juarez(int id)
+        {
+            if (_context.Associates == null)
+            {
+                return Problem("Entity set 'AssociatesContext.Associates'  is null.");
+            }
+            var associates = await _context.Associates.FindAsync(id);
+            if (associates != null)
+            {
+                _context.Associates.Remove(associates);
+            }
+
+            await _context.SaveChangesAsync();
+            return RedirectToAction("Index_Juarez", "Associates");
         }
     }
 }

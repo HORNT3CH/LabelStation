@@ -5,7 +5,7 @@
     Layout = "~/Views/Shared/_Layout_Juarez.cshtml";
 }
 
-<h1 class="mt-5">Details</h1>
+<h1 class="mt-5">Details @Model.Item</h1>
 
 <div>
     <h4>ItemNumber</h4>
@@ -21,5 +21,5 @@
 </div>
 <div>
     <a class="btn btn-primary" asp-action="Edit_Juarez" asp-route-id="@Model?.ID">Edit</a> |
-    <a class="btn btn-secondary" asp-action="Index_Jaurez">Back to List</a>
+    <a class="btn btn-secondary" asp-action="Index_Juarez">Back to List</a>
 </div>

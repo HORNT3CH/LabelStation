@@ -1,0 +1,102 @@
+﻿@model LabelStation.Models.Kanban
+
+@{
+    ViewData["Title"] = "Edit Juarez";
+    Layout = "~/Views/Shared/_Layout_Juarez.cshtml";
+}
+<h1 class="mt-5">Print Kanban Label for @Model.ItemNumber</h1>
+
+<div>
+    <a class="btn btn-secondary mt-2" asp-action="Index_Juarez">Back to List</a>
+</div>
+
+<hr />
+<form asp-action="Edit">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <input type="hidden" asp-for="ID" />
+    <div class="row">
+        <div class="col-lg-4">
+            <div class="form-group">
+                <label asp-for="Print" class="form-label text-danger">Set to Yes to Print</label>
+                <select asp-for="Print" class="form-control">
+                    <option value="">Select To Print</option>
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
+                </select>
+                <span asp-validation-for="Print" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="BOMID" class="control-label">BOM Number</label>
+                <input asp-for="BOMID" class="form-control" readonly />
+                <span asp-validation-for="BOMID" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ItemNumber" class="control-label">Item Number</label>
+                <input asp-for="ItemNumber" class="form-control" readonly />
+                <span asp-validation-for="ItemNumber" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ItemDescription" class="control-label">Item Description</label>
+                <input asp-for="ItemDescription" class="form-control" readonly />
+                <span asp-validation-for="ItemDescription" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PrintQty" class="control-label">Print Quantity Set to 1</label>
+                <input asp-for="PrintQty" class="form-control" min="1" readonly/>
+                <span asp-validation-for="PrintQty" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FullName" class="control-label text-danger">Type in your name.</label>
+                <input asp-for="FullName" class="form-control" />
+                <span asp-validation-for="FullName" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <div class="form-group">
+                <label asp-for="MachineNumber" class="control-label text-danger">Machine Number</label>
+                <input asp-for="MachineNumber" class="form-control" />
+                <span asp-validation-for="MachineNumber" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ReOrderQty" class="control-label text-danger">Re-Order Quantity</label>
+                <input asp-for="ReOrderQty" class="form-control" />
+                <span asp-validation-for="ReOrderQty" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="OrderQty" class="control-label text-danger">Order Quantity</label>
+                <input asp-for="OrderQty" class="form-control" />
+                <span asp-validation-for="OrderQty" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="LineLimit" class="control-label text-danger">Line Limit</label>
+                <input asp-for="LineLimit" class="form-control" />
+                <span asp-validation-for="LineLimit" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ParentSKU" class="control-label">Parent Item Number</label>
+                <input asp-for="ParentSKU" class="form-control" readonly />
+                <span asp-validation-for="ParentSKU" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ParentDescription" class="control-label">Parent Item Description</label>
+                <input asp-for="ParentDescription" class="form-control" readonly />
+                <span asp-validation-for="ParentDescription" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PrinterName" class="control-label text-danger">Select Printer</label>
+                <select asp-for="PrinterName" class="form-control" required>
+                    <option value="">Select Printer</option>
+                    <option value="Juarez_LP">Juarez Printer</option>
+                </select>
+                <span asp-validation-for="PrinterName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save / Print" class="btn btn-primary mt-2" />
+            </div>
+        </div>
+    </div>
+</form>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

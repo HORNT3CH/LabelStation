@@ -24,7 +24,7 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">                        
                         <li class="nav-item">
-                            <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="Hudson">Home</a>
+                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Hudson">Home</a>
                         </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -43,13 +43,14 @@
                                 <li><a class="dropdown-item" asp-area="" asp-controller="Plabels" asp-action="Create">P Labels</a></li>
                                 <li><a class="dropdown-item" asp-area="" asp-controller="RailCars" asp-action="Create">Rail Car LP</a></li>
                                 <li><a class="dropdown-item" asp-area="" asp-controller="BULabels" asp-action="Index">Backup Labels</a></li>
+                                <li><a class="dropdown-item" asp-area="" asp-controller="FlowerPots" asp-action="Index">Flower Pots</a></li>
                             </ul>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-light" asp-area="" asp-controller="Kanbans" asp-action="Index">Kanban</a>
+                            <a class="nav-link" asp-area="" asp-controller="Kanbans" asp-action="Index">Kanban</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-light" asp-area="" asp-controller="PWPLabels" asp-action="Create">PWP Labels</a>
+                            <a class="nav-link" asp-area="" asp-controller="PWPLabels" asp-action="Create">PWP Labels</a>
                         </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -61,7 +62,7 @@
                             </ul>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-light" asp-area="" asp-controller="Reprints" asp-action="Create">Reprint LP</a>
+                            <a class="nav-link" asp-area="" asp-controller="Reprints" asp-action="Create">Reprint LP</a>
                         </li>
                     </ul>
                 </div>
@@ -92,7 +93,22 @@
                 changeMonth: true,
                 changeYear: true,
                 dateFormat: "mm/dd/yy",
-                yearRange: "-90:+00"
+                yearRange: "-01:+05"
+            });
+        });
+
+        $(document).ready(function () {
+            $('#setCodes').click(function () {
+                var months = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L'];
+                var partA = $('#selectedDate').val();
+                var newDate = new Date(partA);
+                var year = newDate.getFullYear();
+                year = year.toString().substr(-2);
+                var month = months[newDate.getMonth()];
+                var date = newDate.getDate();
+                $('#codePartA').val(year);                                
+                $('#codePartB').val(month);
+                $('#codePartC').val(date);
             });
         });
     </script>

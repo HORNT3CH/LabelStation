@@ -1,4 +1,5 @@
-﻿using System;
+﻿#nullable disable
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -21,102 +22,88 @@ namespace LabelStation.Controllers
             _context = context;
         }
 
-        // GET: ItemNumbers 
-        public IActionResult Index(int pg = 1, string SearchText = "")
+        private List<SelectListItem> GetPageSizes(int selectedPageSize = 5)
         {
-            if (SearchText != "" && SearchText != null)
-            {
-                List<ItemNumber> names = _context.ItemNumber.Where(p => p.Item.Contains(SearchText)).ToList();
+            var pagesSizes = new List<SelectListItem>();
 
-                const int pageSize = 10;
-                if (pg < 1)
-                {
-                    pg = 1;
-                }
-
-                int recsCount = names.Count();
-
-                var pager = new Pager(recsCount, pg, pageSize);
-
-                int recSkip = (pg - 1) * pageSize;
-
-                var data = names.Skip(recSkip).Take(pager.PageSize).ToList();
-
-                this.ViewBag.Pager = pager;
-
-                return View(data);
-            }
+            if (selectedPageSize == 5)
+                pagesSizes.Add(new SelectListItem("5", "5", true));
             else
+                pagesSizes.Add(new SelectListItem("5", "5"));
+
+            for (int lp = 10; lp <= 100; lp += 10)
             {
-                List<ItemNumber> items = _context.ItemNumber.ToList();
-
-                const int pageSize = 10;
-                if (pg < 1)
-                {
-                    pg = 1;
-                }
-
-                int recsCount = items.Count();
-
-                var pager = new Pager(recsCount, pg, pageSize);
-
-                int recSkip = (pg - 1) * pageSize;
-
-                var data = items.Skip(recSkip).Take(pager.PageSize).ToList();
-
-                this.ViewBag.Pager = pager;
-
-                return View(data);
+                if (lp == selectedPageSize)
+                { pagesSizes.Add(new SelectListItem(lp.ToString(), lp.ToString(), true)); }
+                else
+                    pagesSizes.Add(new SelectListItem(lp.ToString(), lp.ToString()));
             }
+
+            return pagesSizes;
         }
 
-        // GET: ItemNumbers - Juarez Index
-        public IActionResult Index_Juarez(int pg = 1, string SearchText = "")
+        // GET: Item Numbers Hudson
+        public IActionResult Index(string SearchText = "", int pg = 1, int pageSize = 5)
         {
+            List<ItemNumber> itemnumbers;
+
+            if (pg < 1) pg = 1;
+
+
             if (SearchText != "" && SearchText != null)
             {
-                List<ItemNumber> names = _context.ItemNumber.Where(p => p.Item.Contains(SearchText)).ToList();
-
-                const int pageSize = 10;
-                if (pg < 1)
-                {
-                    pg = 1;
-                }
-
-                int recsCount = names.Count();
-
-                var juarezPager = new Pager(recsCount, pg, pageSize);
-
-                int recSkip = (pg - 1) * pageSize;
-
-                var juarezData = names.Skip(recSkip).Take(juarezPager.PageSize).ToList();
-
-                this.ViewBag.Pager = juarezPager;
-
-                return View(juarezData);
+                itemnumbers = _context.ItemNumber
+                .Where(p => p.Item.Contains(SearchText))
+                .ToList();
             }
             else
+                itemnumbers = _context.ItemNumber.ToList();
+
+            int recsCount = itemnumbers.Count();
+
+            int recSkip = (pg - 1) * pageSize;
+
+            List<ItemNumber> retItemNumbers = itemnumbers.Skip(recSkip).Take(pageSize).ToList();
+
+            Pager SearchPager = new Pager(recsCount, pg, pageSize) { Action = "Index", Controller = "ItemNumbers", SearchText = SearchText };
+            ViewBag.SearchPager = SearchPager;
+
+            this.ViewBag.PageSizes = GetPageSizes(pageSize);
+
+            return View(retItemNumbers.ToList());
+
+        }
+
+        // GET: Item Numbers Index Juarez
+        public IActionResult Index_Juarez(string SearchText = "", int pg = 1, int pageSize = 5)
+        {
+            List<ItemNumber> itemnumbers;
+
+            if (pg < 1) pg = 1;
+
+
+            if (SearchText != "" && SearchText != null)
             {
-                List<ItemNumber> items = _context.ItemNumber.ToList();
-
-                const int pageSize = 10;
-                if (pg < 1)
-                {
-                    pg = 1;
-                }
-
-                int recsCount = items.Count();
-
-                var juarezPager = new Pager(recsCount, pg, pageSize);
-
-                int recSkip = (pg - 1) * pageSize;
-
-                var juarezData = items.Skip(recSkip).Take(juarezPager.PageSize).ToList();
-
-                this.ViewBag.Pager = juarezPager;
-
-                return View(juarezData);
+                itemnumbers = _context.ItemNumber
+                .Where(p => p.Item.Contains(SearchText))
+                .ToList();
             }
+            else
+                itemnumbers = _context.ItemNumber.ToList();
+
+            int recsCount = itemnumbers.Count();
+
+            int recSkip = (pg - 1) * pageSize;
+
+            List<ItemNumber> retItemNumbers = itemnumbers.Skip(recSkip).Take(pageSize).ToList();
+
+            Pager SearchPager = new Pager(recsCount, pg, pageSize) { Action = "Index_Juarez", Controller = "ItemNumbers", SearchText = SearchText };
+            ViewBag.SearchPager = SearchPager;
+
+            this.ViewBag.PageSizes = GetPageSizes(pageSize);
+
+            return View(retItemNumbers.ToList());
+
         }
 
         // GET: ItemNumbers/Details/5
@@ -339,7 +326,7 @@ namespace LabelStation.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Index_Juarez", "ItemNumbers");
             }
             return View(itemNumber);
         }
@@ -360,6 +347,24 @@ namespace LabelStation.Controllers
             }
 
             return View(itemNumber);
+        }
+
+        [HttpPost, ActionName("Delete_Juarez")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed_Juarez(int id)
+        {
+            if (_context.ItemNumber == null)
+            {
+                return Problem("Entity set 'ItemContext.ItemNumber'  is null.");
+            }
+            var itemNumber = await _context.ItemNumber.FindAsync(id);
+            if (itemNumber != null)
+            {
+                _context.ItemNumber.Remove(itemNumber);
+            }
+
+            await _context.SaveChangesAsync();
+            return RedirectToAction("Index_Juarez", "ItemNumbers");
         }
     }
 }

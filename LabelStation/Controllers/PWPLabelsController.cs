@@ -66,7 +66,7 @@ namespace LabelStation.Controllers
             {
                 _context.Add(pWPLabels);
                 await _context.SaveChangesAsync();
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Juarez", "Home");
             }
             return View(pWPLabels);
         }

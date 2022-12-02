@@ -24,7 +24,7 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">                        
                         <li class="nav-item">
-                            <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="Juarez">Home</a>
+                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Juarez">Home</a>
                         </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -43,6 +43,9 @@
                                 <li><a class="dropdown-item" asp-area="" asp-controller="ItemNumbers" asp-action="Index_Juarez">Manage Items</a></li>
                                 <li><a class="dropdown-item" asp-area="" asp-controller="Associates" asp-action="Index_Juarez">Manage Associates</a></li>
                             </ul>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="" asp-controller="Kanbans" asp-action="Index_Juarez">Kanban</a>
                         </li>
                     </ul>
                 </div>
@@ -73,7 +76,21 @@
                 changeMonth: true,
                 changeYear: true,
                 dateFormat: "mm/dd/yy",
-                yearRange: "-90:+00"
+                yearRange: "-01:+05"
+            });
+        });
+        $(document).ready(function () {
+            $('#setCodes').click(function () {
+                var months = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L'];
+                var partA = $('#selectedDate').val();
+                var newDate = new Date(partA);
+                var year = newDate.getFullYear();
+                year = year.toString().substr(-2);
+                var month = months[newDate.getMonth()];
+                var date = newDate.getDate();
+                $('#codePartA').val(year);
+                $('#codePartB').val(month);
+                $('#codePartC').val(date);
             });
         });
     </script>

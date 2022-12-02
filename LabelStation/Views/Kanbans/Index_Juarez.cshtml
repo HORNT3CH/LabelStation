@@ -1,0 +1,122 @@
+﻿@model IEnumerable<LabelStation.Models.Kanban>
+
+@{
+    ViewData["Title"] = "Kanban Juarez";
+    Layout = "~/Views/Shared/_Layout_Juarez.cshtml";
+
+    Pager pager = new Pager();
+    int pageNo = 0;
+    if (ViewBag.SearchPager != null)
+    {
+        pager = ViewBag.SearchPager;
+        pageNo = pager.CurrentPage;
+    }
+}
+
+<h1 class="mt-5">Kanban BOM List</h1>
+
+<p>
+    <a class="btn btn-primary" asp-action="Create_Juarez">Create New BOM Item</a>
+</p>
+
+<partial name="_pager" model="@pager" />
+
+<table class="table table-bordered table-striped table-responsive m-auto">
+    <thead>
+        <tr>
+            <th class="fit">
+                @Html.DisplayNameFor(model => model.Print)
+            </th>
+            <th class="fit">
+                @Html.DisplayNameFor(model => model.BOMID)
+            </th class="fit">
+            <th>
+                @Html.DisplayNameFor(model => model.ItemNumber)
+            </th class="fit">
+            <th>
+                @Html.DisplayNameFor(model => model.ItemDescription)
+            </th class="fit">
+            <th>
+                @Html.DisplayNameFor(model => model.PrintQty)
+            </th class="fit">
+            <th>
+                @Html.DisplayNameFor(model => model.FullName)
+            </th class="fit">
+            <th>
+                @Html.DisplayNameFor(model => model.MachineNumber)
+            </th class="fit">
+            <th>
+                @Html.DisplayNameFor(model => model.ReOrderQty)
+            </th class="fit">
+            <th>
+                @Html.DisplayNameFor(model => model.OrderQty)
+            </th class="fit">
+            <th>
+                @Html.DisplayNameFor(model => model.LineLimit)
+            </th class="fit">
+            <th>
+                @Html.DisplayNameFor(model => model.ParentSKU)
+            </th>
+            <th class="fit">
+                @Html.DisplayNameFor(model => model.ParentDescription)
+            </th>
+            <th class="fit">
+                @Html.DisplayNameFor(model => model.PrinterName)
+            </th>
+            <th class="fit">
+                Actions
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td class="fit">
+                @Html.DisplayFor(modelItem => item.Print)
+            </td>
+            <td class="fit">
+                @Html.DisplayFor(modelItem => item.BOMID)
+            </td>
+            <td class="fit">
+                @Html.DisplayFor(modelItem => item.ItemNumber)
+            </td>
+            <td class="fit">
+                @Html.DisplayFor(modelItem => item.ItemDescription)
+            </td>
+            <td class="fit">
+                @Html.DisplayFor(modelItem => item.PrintQty)
+            </td>
+            <td class="fit">
+                @Html.DisplayFor(modelItem => item.FullName)
+            </td>
+            <td class="fit">
+                @Html.DisplayFor(modelItem => item.MachineNumber)
+            </td>
+            <td class="fit">
+                @Html.DisplayFor(modelItem => item.ReOrderQty)
+            </td>
+            <td class="fit">
+                @Html.DisplayFor(modelItem => item.OrderQty)
+            </td>
+            <td class="fit">
+                @Html.DisplayFor(modelItem => item.LineLimit)
+            </td>
+            <td class="fit">
+                @Html.DisplayFor(modelItem => item.ParentSKU)
+            </td>
+            <td class="fit">
+                @Html.DisplayFor(modelItem => item.ParentDescription)
+            </td>
+            <td class="fit">
+                @Html.DisplayFor(modelItem => item.PrinterName)
+            </td>
+            <td class="fit">
+                <a class="btn btn-primary" asp-action="Edit_Juarez" asp-route-id="@item.ID">Edit / Print</a>
+                @*<a class="btn btn-warning" asp-action="Details" asp-route-id="@item.ID">Details</a>*@
+                @*<a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.ID">Delete</a>*@
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+

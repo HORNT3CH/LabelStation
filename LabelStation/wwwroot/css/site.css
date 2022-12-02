@@ -22,3 +22,15 @@ body {
     white-space: nowrap;
     width: 1%;
 }
+
+.card {
+    transition: 300ms ease-in-out;
+}
+
+.card:hover {
+    transform: scale(1.1);   
+}
+
+img {
+    width: 95%;
+}
