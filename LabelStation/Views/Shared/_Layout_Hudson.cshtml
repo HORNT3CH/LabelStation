@@ -111,6 +111,18 @@
                 $('#codePartC').val(date);
             });
         });
+        $(document).ready(function () {
+            $('#searchBtn').click(function () {
+                var searchText = $('#searchText').val();
+                searchText = searchText.toUpperCase().trim();
+                $('.item').val(searchText);
+            });
+        });
+        $(document).ready(function () {
+            $('#clearBtn').click(function () {
+                $('#searchText').val("");
+            });
+        });
     </script>
     
     @await RenderSectionAsync("Scripts", required: false)

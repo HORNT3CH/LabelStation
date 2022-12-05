@@ -57,11 +57,25 @@
                 @Html.DropDownListFor(n => n.Name, ViewBag.Associates as SelectList, "Select Associate", new { @class = "form-control"})
                 <span asp-validation-for="Name" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="ItemNumber" class="control-label">Select Item Number</label>
-                @Html.DropDownListFor(n => n.ItemNumber, ViewBag.ItemNumbers as SelectList, "Select Item", new { @class = "form-control"})
-                <span asp-validation-for="ItemNumber" class="text-danger"></span>
-            </div>
+            <div class="row">
+                <div class="form-group">
+                    <div class="col-md-4 d-inline-block me-2">
+                        <label asp-for="ItemNumber" class="control-label">Select Item Number</label>
+                        @Html.DropDownListFor(n => n.ItemNumber, ViewBag.ItemNumbers as SelectList, "Select Item" , new { @class = "form-control item"})
+                        <span asp-validation-for="ItemNumber" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-4 d-inline-block me-2">
+                        <label class="control-label">Enter Item To Search</label>
+                        <input id="searchText" type="text" class="form-control" placeholder="Must Be Exact Match" />
+                    </div>
+                    <div class="col-md-4 d-inline me-2">
+                        <a id="searchBtn" class="btn btn-success">Search</a>
+                    </div>
+                    <div class="col-md-4 d-inline me-2">
+                        <a id="clearBtn" class="btn btn-danger">Clear</a>
+                    </div>                    
+                </div>
+            </div>            
             <div class="form-group">
                 <label asp-for="ProductionDate" class="control-label">Click to Select Date</label>
                 <input id="selectedDate" type="text" asp-for="ProductionDate" class="form-control datepicker" readonly/>
