@@ -6,7 +6,6 @@ builder.Services.AddDbContext<FlowerPotsContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("FlowerPotsContext") ?? throw new InvalidOperationException("Connection string 'FlowerPotsContext' not found.")));
 builder.Services.AddDbContext<RailCarContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("RailCarContext") ?? throw new InvalidOperationException("Connection string 'RailCarContext' not found.")));
-
 builder.Services.AddDbContext<KanbanContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("KanbanContext") ?? throw new InvalidOperationException("Connection string 'KanbanContext' not found.")));
 builder.Services.AddDbContext<PWPLabelsContext>(options =>

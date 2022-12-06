@@ -1,8 +1,8 @@
 ﻿@model LabelStation.Models.BULabel
 
 @{
-    ViewData["Title"] = "Create";
-    Layout = "~/Views/Shared/_Layout_Hudson.cshtml";
+    ViewData["Title"] = "Create Juarez";
+    Layout = "~/Views/Shared/_Layout_Juarez.cshtml";
 }
 
 <h1 class="mt-5">Add Item to Backup Label List</h1>
@@ -10,7 +10,7 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Create">
+        <form asp-action="Create_Juarez">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="ItemNumber" class="control-label">Item Number</label>
@@ -44,12 +44,12 @@
             </div>
             <div class="form-group">
                 <label asp-for="Prefix" class="control-label"></label>
-                <input asp-for="Prefix" class="form-control" value="HC" readonly />
+                <input asp-for="Prefix" class="form-control" value="JC" readonly />
                 <span asp-validation-for="Prefix" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="PrinterName" class="control-label"></label>
-                <input asp-for="PrinterName" class="form-control" value="Bartender_RCV" readonly />
+                <input asp-for="PrinterName" class="form-control" value="Juarez_LP" readonly />
                 <span asp-validation-for="PrinterName" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -60,7 +60,7 @@
 </div>
 
 <div>
-    <a class="btn btn-secondary mt-2" asp-action="Index">Back to List</a>
+    <a class="btn btn-secondary mt-2" asp-action="Index_Juarez">Back to List</a>
 </div>
 
 @section Scripts {

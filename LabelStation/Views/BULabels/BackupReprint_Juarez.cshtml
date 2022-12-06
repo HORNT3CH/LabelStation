@@ -1,8 +1,8 @@
 ﻿@model LabelStation.Models.BULabel
 
 @{
-    ViewData["Title"] = "BackupReprint";
-    Layout = "~/Views/Shared/_Layout_Hudson.cshtml";
+    ViewData["Title"] = "BackupReprint Juarez";
+    Layout = "~/Views/Shared/_Layout_Juarez.cshtml";
 }
 
 <h1 class="mt-5">Re-Print Backup Label for @Model.ItemNumber</h1>
@@ -11,7 +11,7 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="BackupReprint">
+        <form asp-action="BackupReprint_Juarez">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="ID" />
             <div class="form-group">
@@ -40,7 +40,7 @@
                 <span asp-validation-for="Quantity" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="LPNumber" class="control-label text-danger">Enter LP Numbers ONLY-HC will be added</label>
+                <label asp-for="LPNumber" class="control-label text-danger">Enter LP Numbers ONLY-JC will be added</label>
                 <input asp-for="LPNumber" class="form-control" maxlength="7" />
                 <span asp-validation-for="LPNumber" class="text-danger"></span>
             </div>
@@ -51,12 +51,12 @@
             </div>
             <div class="form-group">
                 <label asp-for="Prefix" class="form-label">Set By Default</label>
-                <input asp-for="Prefix" value="HC" class="form-control" readonly />
+                <input asp-for="Prefix" value="JC" class="form-control" readonly />
                 <span asp-validation-for="Prefix" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="PrinterName" class="form-label">Set By Default</label>
-                <input asp-for="PrinterName" value="Bartender_RCV" class="form-control" readonly />
+                <input asp-for="PrinterName" value="Juarez_LP" class="form-control" readonly />
                 <span asp-validation-for="PrinterName" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -67,7 +67,7 @@
 </div>
 
 <div>
-    <a class="btn btn-secondary mt-2" asp-action="Index">Back to List</a>
+    <a class="btn btn-secondary mt-2" asp-action="Index_Juarez">Back to List</a>
 </div>
 
 @section Scripts {

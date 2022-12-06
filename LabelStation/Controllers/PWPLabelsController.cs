@@ -60,13 +60,13 @@ namespace LabelStation.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ID,Name,ItemNumber,ProductionDate,CodePartA,CodePartB,CodePartC,Shift,PrintQty,MachineNumber,PrinterName")] PWPLabels pWPLabels)
+        public async Task<IActionResult> Create([Bind("ID,Name,ItemNumber,ProductionDate,CodePartA,CodePartB,CodePartC,Shift,PrintQty,MachineNumber,PrinterName,Warehouse")] PWPLabels pWPLabels)
         {
             if (ModelState.IsValid)
             {
                 _context.Add(pWPLabels);
                 await _context.SaveChangesAsync();
-                return RedirectToAction("Juarez", "Home");
+                return RedirectToAction("Index", "Home");
             }
             return View(pWPLabels);
         }
@@ -84,7 +84,7 @@ namespace LabelStation.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Juarez_PWP([Bind("ID,Name,ItemNumber,ProductionDate,CodePartA,CodePartB,CodePartC,Shift,PrintQty,MachineNumber,PrinterName")] PWPLabels pWPLabels)
+        public async Task<IActionResult> Juarez_PWP([Bind("ID,Name,ItemNumber,ProductionDate,CodePartA,CodePartB,CodePartC,Shift,PrintQty,MachineNumber,PrinterName,Warehouse")] PWPLabels pWPLabels)
         {
             if (ModelState.IsValid)
             {
@@ -96,7 +96,7 @@ namespace LabelStation.Controllers
         }
 
 
-        // GET: PWPLabels/Edit/5
+        // GET: PWPLabels/Edit/5 Hudson
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null || _context.PWPLabels == null)
@@ -112,7 +112,7 @@ namespace LabelStation.Controllers
             return View(pWPLabels);
         }
 
-        // POST: PWPLabels/Edit/5
+        // POST: PWPLabels/Edit/5 Hudson
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -142,7 +142,7 @@ namespace LabelStation.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Hudson", "Home");
             }
             return View(pWPLabels);
         }

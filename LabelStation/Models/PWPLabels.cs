@@ -36,5 +36,7 @@ namespace LabelStation.Models
 
         [Required]
         public string? PrinterName { get; set; }
+
+        public string? Warehouse { get; set; }
     }
 }

@@ -72,7 +72,7 @@ namespace LabelStation.Controllers
 
         }
 
-        // GET: BULabels/BackupReprint
+        // GET: BULabels/BackupReprint 
         public async Task<IActionResult> BackupReprint(int? id)
         {
             if (id == null || _context.BULabel == null)
@@ -88,12 +88,12 @@ namespace LabelStation.Controllers
             return View(bULabel);
         }
 
-        // POST: BULabels/Edit/5
+        // POST: BULabels/Edit/5 Reprint Backup Label
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> BackupReprint(int id, [Bind("ID,ItemNumber,ItemDescription,Print,Standard,Quantity,LPNumber,IsReprint")] BULabel bULabel)
+        public async Task<IActionResult> BackupReprint(int id, [Bind("ID,ItemNumber,ItemDescription,Print,Standard,Quantity,LPNumber,IsReprint,Prefix,PrinterName")] BULabel bULabel)
         {
             if (id != bULabel.ID)
             {
@@ -152,7 +152,7 @@ namespace LabelStation.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ID,ItemNumber,ItemDescription,Print,Standard,Quantity")] BULabel bULabel)
+        public async Task<IActionResult> Create([Bind("ID,ItemNumber,ItemDescription,Print,Standard,Quantity,LPNumber,IsReprint,Prefix,PrinterName")] BULabel bULabel)
         {
             if (ModelState.IsValid)
             {
@@ -184,7 +184,7 @@ namespace LabelStation.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ID,ItemNumber,ItemDescription,Print,Standard,Quantity")] BULabel bULabel)
+        public async Task<IActionResult> Edit(int id, [Bind("ID,ItemNumber,ItemDescription,Print,Standard,Quantity,LPNumber,IsReprint,Prefix,PrinterName")] BULabel bULabel)
         {
             if (id != bULabel.ID)
             {
@@ -254,6 +254,162 @@ namespace LabelStation.Controllers
         private bool BULabelExists(int id)
         {
           return _context.BULabel.Any(e => e.ID == id);
+        }
+
+        // GET: BULabels Juarez
+        public IActionResult Index_Juarez(string SearchText = "", int pg = 1, int pageSize = 5)
+        {
+            List<BULabel> backupLabels;
+
+            if (pg < 1) pg = 1;
+
+
+            if (SearchText != "" && SearchText != null)
+            {
+                backupLabels = _context.BULabel
+                .Where(p => p.ItemNumber.Contains(SearchText))
+                .ToList();
+            }
+            else
+                backupLabels = _context.BULabel.ToList();
+
+            int recsCount = backupLabels.Count();
+
+            int recSkip = (pg - 1) * pageSize;
+
+            List<BULabel> retBackup = backupLabels.Skip(recSkip).Take(pageSize).ToList();
+
+            Pager SearchPager = new Pager(recsCount, pg, pageSize) { Action = "Index_Juarez", Controller = "BULabels", SearchText = SearchText };
+            ViewBag.SearchPager = SearchPager;
+
+            this.ViewBag.PageSizes = GetPageSizes(pageSize);
+
+            return View(retBackup.ToList());
+
+        }
+
+        // GET: BULabels/BackupReprint Juarez
+        public async Task<IActionResult> BackupReprint_Juarez(int? id)
+        {
+            if (id == null || _context.BULabel == null)
+            {
+                return NotFound();
+            }
+
+            var bULabel = await _context.BULabel.FindAsync(id);
+            if (bULabel == null)
+            {
+                return NotFound();
+            }
+            return View(bULabel);
+        }
+
+        // POST: BULabels/Edit/5 Reprint Backup Label
+        // To protect from overposting attacks, enable the specific properties you want to bind to.
+        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> BackupReprint_Juarez(int id, [Bind("ID,ItemNumber,ItemDescription,Print,Standard,Quantity,LPNumber,IsReprint,Prefix,PrinterName")] BULabel bULabel)
+        {
+            if (id != bULabel.ID)
+            {
+                return NotFound();
+            }
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    _context.Update(bULabel);
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!BULabelExists(bULabel.ID))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                return RedirectToAction(nameof(Index_Juarez));
+            }
+            return View(bULabel);
+        }
+
+        // GET: BULabels/Create Juarez
+        public IActionResult Create_Juarez()
+        {
+            return View();
+        }
+
+        // POST: BULabels/Create Juarez
+        // To protect from overposting attacks, enable the specific properties you want to bind to.
+        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create_Juarez([Bind("ID,ItemNumber,ItemDescription,Print,Standard,Quantity,LPNumber,IsReprint,Prefix,PrinterName")] BULabel bULabel)
+        {
+            if (ModelState.IsValid)
+            {
+                _context.Add(bULabel);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index_Juarez));
+            }
+            return View(bULabel);
+        }
+
+        // GET: BULabels/Edit/5 Juarez
+        public async Task<IActionResult> Edit_Juarez(int? id)
+        {
+            if (id == null || _context.BULabel == null)
+            {
+                return NotFound();
+            }
+
+            var bULabel = await _context.BULabel.FindAsync(id);
+            if (bULabel == null)
+            {
+                return NotFound();
+            }
+            return View(bULabel);
+        }
+
+        // POST: BULabels/Edit/5 Juarez
+        // To protect from overposting attacks, enable the specific properties you want to bind to.
+        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit_Juarez(int id, [Bind("ID,ItemNumber,ItemDescription,Print,Standard,Quantity,LPNumber,IsReprint,Prefix,PrinterName")] BULabel bULabel)
+        {
+            if (id != bULabel.ID)
+            {
+                return NotFound();
+            }
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    _context.Update(bULabel);
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!BULabelExists(bULabel.ID))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                return RedirectToAction(nameof(Index_Juarez));
+            }
+            return View(bULabel);
         }
     }
 }

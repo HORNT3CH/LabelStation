@@ -1,4 +1,4 @@
-﻿#nullable disable
+﻿  #nullable disable
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -72,24 +72,6 @@ namespace LabelStation.Controllers
 
         }
 
-        // GET: Kanbans/Details/5
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null || _context.Kanban == null)
-            {
-                return NotFound();
-            }
-
-            var kanban = await _context.Kanban
-                .FirstOrDefaultAsync(m => m.ID == id);
-            if (kanban == null)
-            {
-                return NotFound();
-            }
-
-            return View(kanban);
-        }
-
         // GET: Kanbans/Create
         public IActionResult Create()
         {
@@ -111,6 +93,24 @@ namespace LabelStation.Controllers
             }
             return View(kanban);
         }
+
+        // GET: Kanbans/Details/5
+        public async Task<IActionResult> Details(int? id)
+        {
+            if (id == null || _context.Kanban == null)
+            {
+                return NotFound();
+            }
+
+            var kanban = await _context.Kanban
+                .FirstOrDefaultAsync(m => m.ID == id);
+            if (kanban == null)
+            {
+                return NotFound();
+            }
+
+            return View(kanban);
+        }        
 
         // GET: Kanbans/Edit/5
         public async Task<IActionResult> Edit(int? id)

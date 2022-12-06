@@ -1,0 +1,74 @@
+﻿@model IEnumerable<LabelStation.Models.BULabel>
+
+@{
+    ViewData["Title"] = "JC Label Juarez";
+    Layout = "~/Views/Shared/_Layout_Juarez.cshtml";
+
+    Pager pager = new Pager();
+    int pageNo = 0;
+    if (ViewBag.SearchPager != null)
+    {
+        pager = ViewBag.SearchPager;
+        pageNo = pager.CurrentPage;
+    }
+}
+
+<h1 class="mt-5">JC Labels</h1>
+
+<p>
+    <a class="btn btn-primary" asp-action="Create_Juarez">Add Item to Backup Labels</a>
+</p>
+
+<partial name="_pager" model="@pager" />
+
+<table class="table table-bordered table-striped w-auto">
+    <thead>
+        <tr>
+            <th class="fit">
+                Item Number
+            </th>
+            <th class="fit">
+                Item Description
+            </th>
+            <th class="fit">
+                Marked for Printing
+            </th>
+            <th class="fit">
+                Standard Case
+            </th>
+            <th class="fit">
+                Quantity
+            </th>
+            <th class="fit">
+                Action Buttons
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+                <td class="fit">
+                @Html.DisplayFor(modelItem => item.ItemNumber)
+            </td>
+                <td class="fit">
+                @Html.DisplayFor(modelItem => item.ItemDescription)
+            </td>
+                <td class="fit">
+                @Html.DisplayFor(modelItem => item.Print)
+            </td>
+                <td class="fit">
+                @Html.DisplayFor(modelItem => item.Standard)
+            </td>
+                <td class="fit">
+                @Html.DisplayFor(modelItem => item.Quantity)
+            </td>
+            <td class="fit">
+                <a class="btn btn-primary" asp-action="Edit_Juarez" asp-route-id="@item.ID">Select to Print</a> |
+                <a class="btn btn-warning" asp-action="BackupReprint_Juarez" asp-route-id="@item.ID">Reprint</a>
+                @*<a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.ID">Delete</a>*@
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+

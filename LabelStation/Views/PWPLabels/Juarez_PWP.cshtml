@@ -99,7 +99,7 @@
                 <span asp-validation-for="CodePartC" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Shift" class="control-label">Status</label>
+                <label asp-for="Shift" class="control-label">Select Shift</label>
                 <select asp-for="Shift" class="form-control" required>
                     <option value="">Select Shift</option>
                     <option value="1">First</option>
@@ -123,12 +123,17 @@
                 <span asp-validation-for="MachineNumber" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="PrinterName" class="control-label">Status</label>
+                <label asp-for="PrinterName" class="control-label">Select Printer</label>
                 <select asp-for="PrinterName" class="form-control" required>
                     <option value="">Select Printer</option>                    
                     <option value="Juarez_PWP">Juarez PWP</option>
                 </select>
                 <span asp-validation-for="PrinterName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Warehouse" class="control-label">Location Set by Default</label>
+                <input asp-for="Warehouse" class="form-control" value="J" readonly />
+                <span asp-validation-for="Warehouse" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Print PWP" class="btn btn-primary mt-2" />
