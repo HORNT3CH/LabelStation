@@ -1,7 +1,7 @@
 ﻿@model LabelStation.Models.Kanban
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Print " + Model.ItemNumber;
     Layout = "~/Views/Shared/_Layout_Hudson.cshtml";
 }
 <h1 class="mt-5">Print Kanban Label for @Model.ItemNumber</h1>

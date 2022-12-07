@@ -51,7 +51,7 @@ namespace LabelStation.Controllers
             if (SearchText != "" && SearchText != null)
             {
                 itemnumbers = _context.Kanban
-                .Where(p => p.ItemNumber.Contains(SearchText))
+                .Where(p => p.ParentSKU.Contains(SearchText))
                 .ToList();
             }
             else
@@ -216,7 +216,7 @@ namespace LabelStation.Controllers
             if (SearchText != "" && SearchText != null)
             {
                 itemnumbers = _context.Kanban
-                .Where(p => p.ItemNumber.Contains(SearchText))
+                .Where(p => p.ParentSKU.Contains(SearchText))
                 .ToList();
             }
             else
