@@ -14,7 +14,7 @@
 
         public int Quantity { get; set; }
 
-        public int LPNumber { get; set; }
+        public string? LPNumber { get; set; }
 
         public string? IsReprint { get; set; }
 

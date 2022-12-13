@@ -41,7 +41,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="LPNumber" class="control-label text-danger">Enter LP Numbers ONLY-JC will be added</label>
-                <input asp-for="LPNumber" class="form-control" maxlength="7" />
+                <input onkeypress="return isNumberKey(event)" type="text" asp-for="LPNumber" class="form-control" maxlength="7" />
                 <span asp-validation-for="LPNumber" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -69,6 +69,16 @@
 <div>
     <a class="btn btn-secondary mt-2" asp-action="Index_Juarez">Back to List</a>
 </div>
+
+<script language="Javascript">
+    function isNumberKey(evt) {
+        var charCode = (evt.which) ? evt.which : evt.keyCode;
+        if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+            return false;
+        }
+        return true;
+    }
+</script>
 
 @section Scripts {
     @{

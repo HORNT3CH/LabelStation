@@ -135,7 +135,7 @@ namespace LabelStation.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ID,Item,ItemDesc")] ItemNumber itemNumber)
+        public async Task<IActionResult> Create([Bind("ID,Item")] ItemNumber itemNumber)
         {
             if (ModelState.IsValid)
             {
@@ -167,7 +167,7 @@ namespace LabelStation.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ID,Item,ItemDesc")] ItemNumber itemNumber)
+        public async Task<IActionResult> Edit(int id, [Bind("ID,Item")] ItemNumber itemNumber)
         {
             if (id != itemNumber.ID)
             {
@@ -269,7 +269,7 @@ namespace LabelStation.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create_Juarez([Bind("ID,Item,ItemDesc")] ItemNumber itemNumber)
+        public async Task<IActionResult> Create_Juarez([Bind("ID,Item")] ItemNumber itemNumber)
         {
             if (ModelState.IsValid)
             {
@@ -301,7 +301,7 @@ namespace LabelStation.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit_Juarez(int id, [Bind("ID,Item,ItemDesc")] ItemNumber itemNumber)
+        public async Task<IActionResult> Edit_Juarez(int id, [Bind("ID,Item")] ItemNumber itemNumber)
         {
             if (id != itemNumber.ID)
             {

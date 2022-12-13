@@ -15,7 +15,6 @@ namespace LabelStation.Data
         }
 
         public DbSet<LabelStation.Models.ItemNumber> ItemNumber { get; set; } = default!;
-
-        public DbSet<LabelStation.Models.ItemNumber> ItemDesc { get; set; } = default!;
+        
     }
 }
