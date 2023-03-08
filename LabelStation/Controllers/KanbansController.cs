@@ -9,11 +9,13 @@ using Microsoft.EntityFrameworkCore;
 using LabelStation.Data;
 using LabelStation.Models;
 
+
 namespace LabelStation.Controllers
 {
     public class KanbansController : Controller
     {
         private readonly KanbanContext _context;
+        //private IEnumerable<Kanban> kanbans;
 
         public KanbansController(KanbanContext context)
         {
@@ -51,7 +53,7 @@ namespace LabelStation.Controllers
             if (SearchText != "" && SearchText != null)
             {
                 itemnumbers = _context.Kanban
-                .Where(p => p.ParentSKU.Contains(SearchText))
+                .Where(p => p.ParentSKU.Equals(SearchText))
                 .ToList();
             }
             else
@@ -83,7 +85,7 @@ namespace LabelStation.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ID,Print,BOMID,ItemNumber,ItemDescription,PrintQty,FullName,MachineNumber,ReOrderQty,OrderQty,LineLimit,ParentSKU,ParentDescription,PrinterName")] Kanban kanban)
+        public async Task<IActionResult> Create([Bind("ID,BOMID,ParentSKU,ItemNumber,Print,FullName,MachineNumber,ReOrderQty,OrderQty,LineLimit,ItemDescription,PrintQty,ParentDescription,PrinterName")] Kanban kanban)
         {
             if (ModelState.IsValid)
             {
@@ -92,6 +94,62 @@ namespace LabelStation.Controllers
                 return RedirectToAction(nameof(Index));
             }
             return View(kanban);
+        }
+
+        // Get EditList for Kanban Print Multiple at a time
+        public IActionResult EditList(string SearchText = "", int pg = 1, int pageSize = 5)
+        {
+            List<Kanban> kanbans;
+
+            if (pg < 1) pg = 1;
+
+
+            if (SearchText != "" && SearchText != null)
+            {
+                kanbans = _context.Kanban
+                .Where(p => p.ParentSKU.Equals(SearchText))
+                .ToList();
+            }
+            else
+                kanbans = _context.Kanban.ToList();
+
+            int recsCount = kanbans.Count();
+
+            int recSkip = (pg - 1) * pageSize;
+
+            List<Kanban> retItemNumbers = kanbans.Skip(recSkip).Take(pageSize).ToList();
+
+            Pager SearchPager = new Pager(recsCount, pg, pageSize) { Action = "EditList", Controller = "Kanbans", SearchText = SearchText };
+            ViewBag.SearchPager = SearchPager;
+
+            this.ViewBag.PageSizes = GetPageSizes(pageSize);
+
+            return View(retItemNumbers.ToList());
+
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> EditListPost(int ID, List<Kanban> kanbans)
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    foreach (Kanban kan in kanbans)
+                    {
+                        _context.Update(kan);
+                    }
+
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    return NotFound();
+                }
+            }
+
+            return RedirectToAction(nameof(EditList));
         }
 
         // GET: Kanbans/Details/5
@@ -133,7 +191,7 @@ namespace LabelStation.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ID,Print,BOMID,ItemNumber,ItemDescription,PrintQty,FullName,MachineNumber,ReOrderQty,OrderQty,LineLimit,ParentSKU,ParentDescription,PrinterName")] Kanban kanban)
+        public async Task<IActionResult> Edit(int id, [Bind("ID,BOMID,ParentSKU,ItemNumber,Print,FullName,MachineNumber,ReOrderQty,OrderQty,LineLimit,ItemDescription,PrintQty,ParentDescription,PrinterName")] Kanban kanban)
         {
             if (id != kanban.ID)
             {
@@ -272,7 +330,7 @@ namespace LabelStation.Controllers
             {
                 return NotFound();
             }
-            return View(kanban);
+            return RedirectToAction(nameof(EditList));
         }
 
         // POST: Kanbans/Edit/5 Juarez
@@ -280,7 +338,7 @@ namespace LabelStation.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit_Juarez(int id, [Bind("ID,Print,BOMID,ItemNumber,ItemDescription,PrintQty,FullName,MachineNumber,ReOrderQty,OrderQty,LineLimit,ParentSKU,ParentDescription,PrinterName")] Kanban kanban)
+        public async Task<IActionResult> Edit_Juarez(int id, [Bind("ID,BOMID,ParentSKU,ItemNumber,Print,FullName,MachineNumber,ReOrderQty,OrderQty,LineLimit,ItemDescription,PrintQty,ParentDescription,PrinterName")] Kanban kanban)
         {
             if (id != kanban.ID)
             {

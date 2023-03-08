@@ -2,6 +2,8 @@
 using Microsoft.Extensions.DependencyInjection;
 using LabelStation.Data;
 var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddDbContext<SkuCardsContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("SkuCardsContext") ?? throw new InvalidOperationException("Connection string 'SkuCardsContext' not found.")));
 builder.Services.AddDbContext<FlowerPotsContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("FlowerPotsContext") ?? throw new InvalidOperationException("Connection string 'FlowerPotsContext' not found.")));
 builder.Services.AddDbContext<RailCarContext>(options =>

@@ -59,6 +59,10 @@
     "mssql15": {
       "type": "mssql",
       "connectionId": "ConnectionStrings:FlowerPotsContext"
+    },
+    "mssql16": {
+      "type": "mssql",
+      "connectionId": "ConnectionStrings:SkuCardsContext"
     }
   }
 }

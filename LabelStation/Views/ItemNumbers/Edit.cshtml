@@ -17,7 +17,21 @@
                 <label asp-for="Item" class="control-label">Item</label>
                 <input asp-for="Item" class="form-control" />
                 <span asp-validation-for="Item" class="text-danger"></span>
-            </div>            
+            </div>
+            <div class="form-group">
+                <label asp-for="ItemDesc" class="control-label">Item Description</label>
+                <input asp-for="ItemDesc" class="form-control" placeholder="Enter new Item Description" />
+                <span asp-validation-for="ItemDesc" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ItemType" class="form-label">Item Type</label>
+                <select asp-for="ItemType" class="form-control">
+                    <option value="">Select Item Type</option>
+                    <option value="CM">Component</option>
+                    <option value="FG">Finished Good</option>
+                </select>
+                <span asp-validation-for="ItemType" class="text-danger"></span>
+            </div>
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary mt-2" />
             </div>

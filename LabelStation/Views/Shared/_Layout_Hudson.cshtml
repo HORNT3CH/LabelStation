@@ -33,6 +33,7 @@
                             <ul class="dropdown-menu">
                                 <li><a class="dropdown-item" asp-area="" asp-controller="Wlabels" asp-action="Create">W Labels</a></li>
                                 <li><a class="dropdown-item" asp-area="" asp-controller="RWlabels" asp-action="Create">RW Labels</a></li>
+                                <li><a class="dropdown-item" asp-area="" asp-controller="SkuCards" asp-action="Create">SKU Card</a></li>
                             </ul>
                         </li>
                         <li class="nav-item dropdown">
@@ -46,9 +47,14 @@
                                 <li><a class="dropdown-item" asp-area="" asp-controller="FlowerPots" asp-action="Index">Flower Pots</a></li>
                             </ul>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Kanbans" asp-action="Index">Kanban</a>
-                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Kanban
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" asp-area="" asp-controller="Kanbans" asp-action="Index">Edit Kanban</a></li>
+                                <li><a class="dropdown-item" asp-area="" asp-controller="Kanbans" asp-action="EditList">Print Multiple</a></li>                                
+                            </ul>
                         <li class="nav-item">
                             <a class="nav-link" asp-area="" asp-controller="PWPLabels" asp-action="Create">PWP Labels</a>
                         </li>
@@ -87,6 +93,9 @@
     <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+@*    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.19.0/jquery.validate.min.js"></script>
+    <script src="https://ajax.aspnetcdn.com/ajax/mvc/5.2.7/jquery.validate.unobtrusive.min.js"></script>*@
     <script type="text/javascript">
         $(document).ready(function () {
             $('.datepicker').datepicker({
@@ -121,6 +130,22 @@
         $(document).ready(function () {
             $('#clearBtn').click(function () {
                 $('#searchText').val("");
+            });
+        });
+        $(document).ready(function () {
+            $('#ddlOption1').change(function () {
+                var selectedValue = $(this).val();
+                $.ajax({
+                    url: '/SkuCards/GetOptions',
+                    type: 'POST',
+                    data: { option1Value: selectedValue },
+                    success: function (data) {
+                        $('#ddlOption2').html('');
+                        $.each(data, function (index, option) {
+                            $('#ddlOption2').append($('<option></option>').val(option.text).html(option.value));
+                        });
+                    }
+                });
             });
         });
     </script>

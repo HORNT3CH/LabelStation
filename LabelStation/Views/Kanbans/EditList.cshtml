@@ -1,0 +1,130 @@
+﻿@model IEnumerable<LabelStation.Models.Kanban>
+
+@{
+    ViewData["Title"] = "Kanban";
+    Layout = "~/Views/Shared/_Layout_Hudson.cshtml";
+
+    Pager pager = new Pager();
+    int pageNo = 0;
+    if (ViewBag.SearchPager != null)
+    {
+        pager = ViewBag.SearchPager;
+        pageNo = pager.CurrentPage;
+    }
+}
+
+<h1 class="mt-5">Kanban BOM List</h1>
+
+<partial name="_pager" model="@pager" />
+
+<form asp-action="EditListPost">
+    <input class="btn btn-primary" type="submit" value="Print Cards" />
+<table class="table table-bordered table-striped table-responsive m-auto mt-2">
+    <thead>
+        <tr>
+            <th class="fit">
+                @Html.DisplayNameFor(model => model.BOMID)
+            </th>
+            <th class="fit">
+                @Html.DisplayNameFor(model => model.ItemNumber)
+            </th>
+            <th class="fit">
+                @Html.DisplayNameFor(model => model.ParentSKU)
+            </th>
+            <th class="fit">
+                @Html.DisplayNameFor(model => model.Print)
+            </th>
+            <th class="fit">
+                @Html.DisplayNameFor(model => model.FullName)
+            </th>
+            <th class="fit">
+                @Html.DisplayNameFor(model => model.MachineNumber)
+            </th>
+            <th class="fit">
+                @Html.DisplayNameFor(model => model.ReOrderQty)
+            </th>
+            <th class="fit">
+                @Html.DisplayNameFor(model => model.OrderQty)
+            </th>
+            <th class="fit">
+                @Html.DisplayNameFor(model => model.LineLimit)
+            </th>
+            <th class="fit">
+                @Html.DisplayNameFor(model => model.ItemDescription)
+            </th>
+            <th class="fit">
+                @Html.DisplayNameFor(model => model.PrintQty)
+            </th>
+            <th class="fit">
+                @Html.DisplayNameFor(model => model.ParentDescription)
+            </th>
+            <th class="fit">
+                @Html.DisplayNameFor(model => model.PrinterName)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+@for (int i = 0; i < Model.Count(); i++) {
+        <tr>            
+            <td class="fit">
+                @Html.HiddenFor(m => m.ToList()[i].BOMID)
+                @Html.DisplayFor(m => m.ToList()[i].BOMID)
+            </td>
+            <td class="fit">
+                @Html.HiddenFor(m => m.ToList()[i].ItemNumber)
+                @Html.DisplayFor(m => m.ToList()[i].ItemNumber)
+            </td>
+            <td class="fit">
+                @Html.HiddenFor(m => m.ToList()[i].ParentSKU)
+                @Html.DisplayFor(m => m.ToList()[i].ParentSKU)
+            </td>
+            <td class="fit">                
+                @Html.DropDownListFor(m => m.ToList()[i].Print, new List<SelectListItem> {
+                    new SelectListItem { Text = "Yes", Value = "Yes" },
+                    new SelectListItem { Text = "No", Value = "No" }
+                }, "Select Option")
+            </td>
+            <td class="fit">
+                @Html.HiddenFor(m => m.ToList()[i].FullName)
+                @Html.DisplayFor(m => m.ToList()[i].FullName)
+            </td>
+            <td class="fit">
+                @Html.HiddenFor(m => m.ToList()[i].MachineNumber)
+                @Html.DisplayFor(m => m.ToList()[i].MachineNumber)
+                
+            </td>
+            <td class="fit">
+                @Html.HiddenFor(m => m.ToList()[i].ReOrderQty)
+                @Html.DisplayFor(m => m.ToList()[i].ReOrderQty)
+            </td>
+            <td class="fit">
+                @Html.HiddenFor(m => m.ToList()[i].OrderQty)
+                @Html.DisplayFor(m => m.ToList()[i].OrderQty)
+            </td>
+            <td class="fit">
+                @Html.HiddenFor(m => m.ToList()[i].LineLimit)
+                @Html.DisplayFor(m => m.ToList()[i].LineLimit)
+            </td>
+            <td class="fit">
+                @Html.HiddenFor(m => m.ToList()[i].ItemDescription)
+                @Html.DisplayFor(m => m.ToList()[i].ItemDescription)
+            </td>
+            <td class="fit">
+                @Html.HiddenFor(m => m.ToList()[i].PrintQty)
+                @Html.DisplayFor(m => m.ToList()[i].PrintQty)
+            </td>
+            <td class="fit">
+                @Html.HiddenFor(m => m.ToList()[i].ParentDescription)
+                @Html.DisplayFor(m => m.ToList()[i].ParentDescription)
+            </td>
+            <td class="fit">
+                @Html.HiddenFor(m => m.ToList()[i].PrinterName)
+                @Html.DisplayFor(m => m.ToList()[i].PrinterName)
+            </td>                
+        </tr>
+}
+    </tbody>
+</table>
+</form>
+
+
