@@ -63,6 +63,10 @@
     "mssql16": {
       "type": "mssql.local",
       "connectionId": "ConnectionStrings:SkuCardsContext"
+    },
+    "mssql17": {
+      "type": "mssql.local",
+      "connectionId": "ConnectionStrings:ScanLabelsContext"
     }
   }
 }

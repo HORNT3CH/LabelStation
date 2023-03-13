@@ -34,6 +34,8 @@
                                 <li><a class="dropdown-item" asp-area="" asp-controller="Wlabels" asp-action="Create">W Labels</a></li>
                                 <li><a class="dropdown-item" asp-area="" asp-controller="RWlabels" asp-action="Create">RW Labels</a></li>
                                 <li><a class="dropdown-item" asp-area="" asp-controller="SkuCards" asp-action="Create">SKU Card</a></li>
+                                <li><a class="dropdown-item" asp-area="" asp-controller="ScanLabels" asp-action="Index">Scan Labels Edit</a></li>
+                                <li><a class="dropdown-item" asp-area="" asp-controller="ScanLabels" asp-action="EditList">Scan Label Multiple</a></li>
                             </ul>
                         </li>
                         <li class="nav-item dropdown">
@@ -143,6 +145,22 @@
                         $('#ddlOption2').html('');
                         $.each(data, function (index, option) {
                             $('#ddlOption2').append($('<option></option>').val(option.text).html(option.value));
+                        });
+                    }
+                });
+            });
+        });
+        $(document).ready(function () {
+            $('#ddlScanOption1').change(function () {
+                var selectedValue = $(this).val();
+                $.ajax({
+                    url: '/SkuCards/GetOptions',
+                    type: 'POST',
+                    data: { option1Value: selectedValue },
+                    success: function (data) {
+                        $('#ddlScanOption2').html('');
+                        $.each(data, function (index, option) {
+                            $('#ddlScanOption2').append($('<option></option>').val(option.text).html(option.value));
                         });
                     }
                 });

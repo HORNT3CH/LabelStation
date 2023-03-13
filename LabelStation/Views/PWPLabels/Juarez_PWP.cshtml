@@ -50,7 +50,7 @@
 
 <hr />
 <div class="row">
-    <div class="col-md-4">
+    <div class="col-md-6">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
@@ -139,6 +139,19 @@
                 <input type="submit" value="Print PWP" class="btn btn-primary mt-2" />
             </div>
         </form>
+    </div>
+    <div class="col-md-6">
+        <p class="display-6">New Item Numbers</p>
+        <p>All Item numbers now have separating dash/s</p>
+        <p>For example:</p>
+        <ul>
+            <li class="list-unstyled"><h5>612060 is now <span class="fw-bold">612060-000</span></h5></li>
+            <li class="list-unstyled"><h5>612060M is now <span class="fw-bold">612060-M</span></h5></li>
+            <li class="list-unstyled"><h5>612060M8X1 is now <span class="fw-bold">612060-M8X1</span></h5></li>
+            <li class="list-unstyled"><h5>638206MP is now <span class="fw-bold">638206-MP</span></h5></li>
+            <li class="list-unstyled"><h5>638602E4C is now <span class="fw-bold">638602-E4C</span></h5></li>
+            <li class="list-unstyled"><h5>638695PC-1 is now <span class="fw-bold">638695-PC-1</span><span style="color: red;"> -1 gets tacked on the end</span></h5></li>
+        </ul>
     </div>
 </div>
 

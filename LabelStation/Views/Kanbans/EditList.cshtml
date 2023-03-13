@@ -23,6 +23,9 @@
     <thead>
         <tr>
             <th class="fit">
+                @Html.DisplayNameFor(model => model.ID)
+            </th>
+            <th class="fit">
                 @Html.DisplayNameFor(model => model.BOMID)
             </th>
             <th class="fit">
@@ -65,7 +68,11 @@
     </thead>
     <tbody>
 @for (int i = 0; i < Model.Count(); i++) {
-        <tr>            
+        <tr>
+            <td>
+                @Html.HiddenFor(m => m.ToList()[i].ID)
+                @Html.DisplayFor(m => m.ToList()[i].ID)
+            </td>
             <td class="fit">
                 @Html.HiddenFor(m => m.ToList()[i].BOMID)
                 @Html.DisplayFor(m => m.ToList()[i].BOMID)

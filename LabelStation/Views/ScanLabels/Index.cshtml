@@ -1,0 +1,67 @@
+﻿@model IEnumerable<LabelStation.Models.ScanLabel>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout_Hudson.cshtml";
+
+    Pager pager = new Pager();
+    int pageNo = 0;
+    if (ViewBag.SearchPager != null)
+    {
+        pager = ViewBag.SearchPager;
+        pageNo = pager.CurrentPage;
+    }
+}
+
+<h1 class="mt-5">Scan Label List</h1>
+
+<p>
+    <a class="btn btn-primary" asp-action="Create">Create New</a>
+</p>
+
+<partial name="_pager" model="@pager" />
+
+<table class="table table-bordered table-striped w-auto">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ItemNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ItemDescription)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PrintLabel)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ImageLocation)
+            </th>
+            <th>
+                Action Buttons
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ItemNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ItemDescription)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PrintLabel)
+            </td>
+            <td>                
+                @Html.DisplayFor(modelItem => item.ImageLocation)                
+            </td>
+            <td>
+                <a class="btn btn-primary" asp-action="Edit" asp-route-id="@item.ScanLabelId">Edit</a> |
+                <a class="btn btn-warning" asp-action="Details" asp-route-id="@item.ScanLabelId">Details</a> |
+                <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.ScanLabelId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
