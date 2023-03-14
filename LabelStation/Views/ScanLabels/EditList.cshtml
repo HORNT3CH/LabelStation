@@ -59,7 +59,7 @@
                         @Html.DropDownListFor(m => m.ToList()[i].PrintLabel, new List<SelectListItem> {
                     new SelectListItem { Text = "Yes", Value = "Yes" },
                     new SelectListItem { Text = "No", Value = "No" }
-                    }, "Select Option")
+                    }, "Select Option", new { @class = "dropdown-item"})
                     </td>
                     <td class="fit">
                         @Html.HiddenFor(m => m.ToList()[i].ImageLocation)

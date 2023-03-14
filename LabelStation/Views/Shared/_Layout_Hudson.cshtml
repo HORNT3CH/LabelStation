@@ -135,6 +135,30 @@
             });
         });
         $(document).ready(function () {
+            $('#scanCardSearchBtn').click(function () {
+                var searchText = $('#scanCardSearchText').val();
+                searchText = searchText.toUpperCase().trim();
+                $('#ddlOption1').val(searchText);
+                var selectedValue = $('#scanCardSearchText').val();
+                $.ajax({
+                    url: '/SkuCards/GetOptions',
+                    type: 'POST',
+                    data: { option1Value: selectedValue },
+                    success: function (data) {
+                        $('#ddlOption2').html('');
+                        $.each(data, function (index, option) {
+                            $('#ddlOption2').append($('<option></option>').val(option.text).html(option.value));
+                        });
+                    }
+                });
+            });
+        });
+        $(document).ready(function () {
+            $('#scanCardClearBtn').click(function () {
+                $('#scanCardSearchText').val("");
+            });
+        });
+        $(document).ready(function () {
             $('#ddlOption1').change(function () {
                 var selectedValue = $(this).val();
                 $.ajax({
