@@ -23,6 +23,16 @@
                 <span asp-validation-for="ItemDescription" class="text-danger"></span>
             </div>
             <div class="form-group">
+                <label asp-for="CarryHeight" class="control-label"></label>
+                <input asp-for="CarryHeight" class="form-control" />
+                <span asp-validation-for="CarryHeight" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="StackHeight" class="control-label"></label>
+                <input asp-for="StackHeight" class="form-control" />
+                <span asp-validation-for="StackHeight" class="text-danger"></span>
+            </div>
+            <div class="form-group">
                 <label asp-for="PrintLabel" class="control-label"></label>
                 <input asp-for="PrintLabel" class="form-control" value="No" readonly />
                 <span asp-validation-for="PrintLabel" class="text-danger"></span>

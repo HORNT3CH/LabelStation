@@ -32,3 +32,14 @@
         </div>        
     </div>
 </div>
+<script type="text/javascript">
+        function DisplayProgressMessage(ctl, msg) {            
+            $(ctl).prop("disable", true).text(msg);
+            $("body").addClass("submit-progress-bg");
+            $(".submit.progress").removeClass("hidden");
+            setTimeout(function() {
+                $(ctl).click();
+            }, 1);
+            return true;
+        }    
+</script>

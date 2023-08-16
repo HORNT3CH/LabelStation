@@ -1,0 +1,47 @@
+﻿@model LabelStation.Models.NameBadge
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout_Hudson.cshtml";
+}
+
+<h1 class="mt-5">Create Name Badges</h1>
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="PrintName" class="control-label"></label>
+                <input asp-for="PrintName" class="form-control" />
+                <span asp-validation-for="PrintName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="HJUser" class="control-label"></label>
+                <input asp-for="HJUser" class="form-control" />
+                <span asp-validation-for="HJUser" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PrinterName" class="form-label">Select Printer</label>
+                <select asp-for="PrinterName" class="form-control">
+                    <option value="">Select Printer Name</option>
+                    <option value="HJ308_Clerks">HJ308 Clerks Office</option>
+                    <option value="HJ310_Clerks">HJ310 Clerks Office</option>
+                </select>
+                <span asp-validation-for="PrinterName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary mt-2" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-controller="Home" asp-action="Hudson" class="btn btn-danger mt-2">Cancel</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

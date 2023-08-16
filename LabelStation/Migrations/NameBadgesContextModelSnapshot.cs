@@ -7,34 +7,40 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace LabelStation.Migrations.SkuCards
+namespace LabelStation.Migrations
 {
-    [DbContext(typeof(SkuCardsContext))]
-    partial class SkuCardsContextModelSnapshot : ModelSnapshot
+    [DbContext(typeof(NameBadgesContext))]
+    partial class NameBadgesContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "6.0.14")
+                .HasAnnotation("ProductVersion", "6.0.21")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
-            modelBuilder.Entity("LabelStation.Models.SkuCard", b =>
+            modelBuilder.Entity("LabelStation.Models.NameBadge", b =>
                 {
-                    b.Property<int>("SkuCardId")
+                    b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("SkuCardId"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"), 1L, 1);
 
-                    b.Property<string>("ItemNumber")
+                    b.Property<string>("PrintName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("SkuCardId");
+                    b.Property<string>("PrinterName")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.ToTable("SkuCard");
+                    b.Property<string>("UserName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("NameBadge");
                 });
 #pragma warning restore 612, 618
         }

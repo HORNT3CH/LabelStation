@@ -103,7 +103,7 @@ namespace LabelStation.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ScanLabelId,ItemNumber,ItemDescription,PrintLabel,ImageLocation")] ScanLabel scanLabel)
+        public async Task<IActionResult> Create([Bind("ScanLabelId,ItemNumber,ItemDescription,PrintLabel,ImageLocation,CarryHeight,StackHeight")] ScanLabel scanLabel)
         {
             if (ModelState.IsValid)
             {
@@ -205,7 +205,7 @@ namespace LabelStation.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ScanLabelId,ItemNumber,ItemDescription,PrintLabel,ImageLocation")] ScanLabel scanLabel)
+        public async Task<IActionResult> Edit(int id, [Bind("ScanLabelId,ItemNumber,ItemDescription,PrintLabel,ImageLocation,CarryHeight,StackHeight")] ScanLabel scanLabel)
         {
             if (id != scanLabel.ScanLabelId)
             {

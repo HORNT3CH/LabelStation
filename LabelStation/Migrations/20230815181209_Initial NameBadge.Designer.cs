@@ -10,20 +10,20 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace LabelStation.Migrations
 {
-    [DbContext(typeof(PlabelContext))]
-    [Migration("20221010121700_Initial Create")]
-    partial class InitialCreate
+    [DbContext(typeof(NameBadgesContext))]
+    [Migration("20230815181209_Initial NameBadge")]
+    partial class InitialNameBadge
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "6.0.9")
+                .HasAnnotation("ProductVersion", "6.0.21")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
-            modelBuilder.Entity("LabelStation.Models.Plabel", b =>
+            modelBuilder.Entity("LabelStation.Models.NameBadge", b =>
                 {
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
@@ -31,12 +31,18 @@ namespace LabelStation.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"), 1L, 1);
 
-                    b.Property<int>("PrintNumber")
-                        .HasColumnType("int");
+                    b.Property<string>("PrintName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PrinterName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserName")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("ID");
 
-                    b.ToTable("Plabel");
+                    b.ToTable("NameBadge");
                 });
 #pragma warning restore 612, 618
         }

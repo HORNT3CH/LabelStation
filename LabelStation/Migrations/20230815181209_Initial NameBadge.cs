@@ -2,30 +2,32 @@
 
 #nullable disable
 
-namespace LabelStation.Migrations.RWlabel
+namespace LabelStation.Migrations
 {
-    public partial class RWlabelInitial : Migration
+    public partial class InitialNameBadge : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "RWlabel",
+                name: "NameBadge",
                 columns: table => new
                 {
                     ID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    PrintNumber = table.Column<int>(type: "int", nullable: false)
+                    PrintName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    UserName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    PrinterName = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_RWlabel", x => x.ID);
+                    table.PrimaryKey("PK_NameBadge", x => x.ID);
                 });
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "RWlabel");
+                name: "NameBadge");
         }
     }
 }

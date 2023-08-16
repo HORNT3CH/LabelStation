@@ -67,6 +67,10 @@
     "mssql17": {
       "type": "mssql",
       "connectionId": "ConnectionStrings:ScanLabelsContext"
+    },
+    "mssql18": {
+      "type": "mssql",
+      "connectionId": "ConnectionStrings:NameBadgesContext"
     }
   }
 }

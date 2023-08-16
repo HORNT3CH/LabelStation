@@ -12,5 +12,7 @@ namespace LabelStation.Models
         public string PrintLabel { get; set; }
 
         public string ImageLocation { get; set; }
+        public string CarryHeight { get; set; }
+        public string StackHeight { get; set; }
     }
 }
