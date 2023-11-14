@@ -37,6 +37,7 @@
                                 <li><a class="dropdown-item" asp-area="" asp-controller="ScanLabels" asp-action="Index">Scan Labels Edit</a></li>
                                 <li><a class="dropdown-item" asp-area="" asp-controller="ScanLabels" asp-action="EditList">Scan Label Multiple</a></li>
                                 <li><a class="dropdown-item" asp-area="" asp-controller="NameBadges" asp-action="Create">PTL Name Badges</a></li>
+                                <li><a class="dropdown-item" asp-area="" asp-controller="Inventories" asp-action="Create">Inventory PWP</a></li>
                             </ul>
                         </li>
                         <li class="nav-item dropdown">
@@ -106,6 +107,38 @@
                 changeYear: true,
                 dateFormat: "mm/dd/yy",
                 yearRange: "-01:+05"
+            });
+        });
+        $(document).ready(function () {
+            // Get references to the input and output elements
+            var $textInput = $("#textInput");
+            var $outputDiv = $("#outputDiv");
+
+            // Attach a keydown event handler to the input element
+            $textInput.keyup(function (event) {
+                // Get the text currently entered in the input
+                var typedText = $textInput.val();
+
+                // Display the typed text in the output div
+                $outputDiv.text(typedText);
+            });
+        });
+        document.addEventListener("DOMContentLoaded", function () {
+            var evenNumberInput = document.getElementById("evenNumberInput");
+
+            evenNumberInput.addEventListener("input", function () {
+                var value = parseInt(evenNumberInput.value);
+
+                if (isNaN(value)) {
+                    evenNumberInput.value = "";
+                } else {
+                    // Ensure the input value is even
+                    if (value % 2 !== 0) {
+                        // If it's not even, round it to the nearest even number
+                        value = Math.floor(value / 2) * 2;
+                        evenNumberInput.value = value;
+                    }
+                }
             });
         });
 

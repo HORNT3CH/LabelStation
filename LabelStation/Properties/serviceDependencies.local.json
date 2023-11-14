@@ -71,6 +71,10 @@
     "mssql18": {
       "type": "mssql.local",
       "connectionId": "ConnectionStrings:NameBadgesContext"
+    },
+    "mssql19": {
+      "type": "mssql.local",
+      "connectionId": "ConnectionStrings:InventoryContext"
     }
   }
 }

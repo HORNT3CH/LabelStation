@@ -367,24 +367,6 @@ namespace LabelStation.Controllers
             }
             return View(kanban);
         }
-
-        // POST: Kanbans/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed_Juarez(int id)
-        {
-            if (_context.Kanban == null)
-            {
-                return Problem("Entity set 'KanbanContext.Kanban'  is null.");
-            }
-            var kanban = await _context.Kanban.FindAsync(id);
-            if (kanban != null)
-            {
-                _context.Kanban.Remove(kanban);
-            }
-
-            await _context.SaveChangesAsync();
-            return RedirectToAction("Index_Juarez", "Kanbans");
-        }
+        
     }
 }

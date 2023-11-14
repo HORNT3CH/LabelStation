@@ -2,6 +2,8 @@
 using Microsoft.Extensions.DependencyInjection;
 using LabelStation.Data;
 var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddDbContext<InventoryContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("InventoryContext") ?? throw new InvalidOperationException("Connection string 'InventoryContext' not found.")));
 builder.Services.AddDbContext<NameBadgesContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("NameBadgesContext") ?? throw new InvalidOperationException("Connection string 'NameBadgesContext' not found.")));
 builder.Services.AddDbContext<ScanLabelsContext>(options =>

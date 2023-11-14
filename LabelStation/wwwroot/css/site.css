@@ -34,3 +34,10 @@ body {
 img {
     width: 95%;
 }
+
+.no-spinner::-webkit-inner-spin-button,
+.no-spinner::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    appearance: none;
+    margin: 0; /* Optional: You can adjust the margin as needed */
+}
