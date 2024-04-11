@@ -1,0 +1,74 @@
+﻿@model IEnumerable<LabelStation.Models.HorticulturalContainers>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout_Hudson.cshtml";
+}
+<br />
+<h1 class="mt-5">Horticultual Container Labels</h1>
+
+<p>
+    <a class="btn btn-primary" asp-action="Create">Add New Label</a>
+</p>
+<table class="table table-bordered table-striped w-auto">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.LTPartNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CustomerPartNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Barcode)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PackAmount)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Quantity)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Print)
+            </th>
+            <th>
+                Actions
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.LTPartNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CustomerPartNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Barcode)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PackAmount)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Quantity)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Print)
+            </td>
+            <td>
+                <a class="btn btn-primary" asp-action="Edit" asp-route-id="@item.Id">Print Label/s</a> |
+                <a class="btn btn-warning" asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

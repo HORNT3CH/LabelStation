@@ -2,6 +2,8 @@
 using Microsoft.Extensions.DependencyInjection;
 using LabelStation.Data;
 var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddDbContext<HorticulturalContainersContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("HorticulturalContainersContext") ?? throw new InvalidOperationException("Connection string 'HorticulturalContainersContext' not found.")));
 builder.Services.AddDbContext<InventoryContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("InventoryContext") ?? throw new InvalidOperationException("Connection string 'InventoryContext' not found.")));
 builder.Services.AddDbContext<NameBadgesContext>(options =>

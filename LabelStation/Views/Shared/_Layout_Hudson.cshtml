@@ -49,6 +49,7 @@
                                 <li><a class="dropdown-item" asp-area="" asp-controller="RailCars" asp-action="Create">Rail Car LP</a></li>
                                 <li><a class="dropdown-item" asp-area="" asp-controller="BULabels" asp-action="Index">Backup Labels</a></li>
                                 <li><a class="dropdown-item" asp-area="" asp-controller="FlowerPots" asp-action="Index">Flower Pots</a></li>
+                                <li><a class="dropdown-item" asp-area="" asp-controller="HorticulturalContainers" asp-action="Index">HC Labels</a></li>
                             </ul>
                         </li>
                         <li class="nav-item dropdown">
@@ -125,20 +126,23 @@
         });
         document.addEventListener("DOMContentLoaded", function () {
             var evenNumberInput = document.getElementById("evenNumberInput");
+            var prevValue = ""; // Store the previous input value
 
             evenNumberInput.addEventListener("input", function () {
-                var value = parseInt(evenNumberInput.value);
+                var value = evenNumberInput.value;
 
-                if (isNaN(value)) {
-                    evenNumberInput.value = "";
-                } else {
-                    // Ensure the input value is even
-                    if (value % 2 !== 0) {
-                        // If it's not even, round it to the nearest even number
-                        value = Math.floor(value / 2) * 2;
-                        evenNumberInput.value = value;
+                if (value.length >= 2) {
+                    // When at least two digits are entered, check if it's an odd number
+                    var lastDigit = parseInt(value[value.length - 1]);
+                    if (lastDigit % 2 !== 0) {
+                        // If it's odd, round it to the nearest even number
+                        var newValue = value.slice(0, -1) + (lastDigit + 1);
+                        evenNumberInput.value = newValue;
                     }
                 }
+
+                // Update the previous value
+                prevValue = evenNumberInput.value;
             });
         });
 

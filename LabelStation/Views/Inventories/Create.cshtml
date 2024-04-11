@@ -20,11 +20,10 @@
             </div>
             <div class="form-group">
                 <label asp-for="PrintNumber" class="control-label">Quantity</label>
-                <input id="evenNumberInput" asp-for="PrintNumber" class="form-control no-spinner" type="number" value="20" maxlength="3" min="1" placeholder="Enter Number to Print" />
+                <input id="evenNumberInput" asp-for="PrintNumber" class="form-control no-spinner" type="number" maxlength="3" min="1" placeholder="Enter Number to Print" />
                 <span asp-validation-for="PrintNumber" class="text-danger"></span>
             </div>
-            <div id="outputDiv" class="mt-5 display-4">
-                
+            <div id="outputDiv" class="mt-5 display-4">                
             </div>
             <div class="form-group">
                 <input type="submit" value="Print" class="btn btn-primary mt-5" />

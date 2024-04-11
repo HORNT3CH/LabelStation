@@ -75,6 +75,10 @@
     "mssql19": {
       "type": "mssql",
       "connectionId": "ConnectionStrings:InventoryContext"
+    },
+    "mssql20": {
+      "type": "mssql",
+      "connectionId": "ConnectionStrings:HorticulturalContainersContext"
     }
   }
 }
