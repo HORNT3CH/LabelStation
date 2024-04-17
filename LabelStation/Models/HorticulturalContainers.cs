@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using Microsoft.Build.Framework;
+using System.ComponentModel;
 
 namespace LabelStation.Models
 {
@@ -6,7 +7,8 @@ namespace LabelStation.Models
     {
         public int Id { get; set; }
         [DisplayName("Little Tikes Part Number")]
-        public string? LTPartNumber { get; set; }
+        [Required]
+        public string LTPartNumber { get; set; }
         [DisplayName("Customer Part Number")]
         public string? CustomerPartNumber { get; set; }
         public string? Description { get; set; }
