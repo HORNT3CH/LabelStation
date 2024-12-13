@@ -43,7 +43,7 @@ namespace LabelStation.Controllers
         }
 
         // GET: Kanban
-        public IActionResult Index(string SearchText = "", int pg = 1, int pageSize = 5)
+        public IActionResult Index(string SearchText = "", int pg = 1, int pageSize = 20)
         {
             List<Kanban> itemnumbers;
 
@@ -97,7 +97,7 @@ namespace LabelStation.Controllers
         }
 
         // Get EditList for Kanban Print Multiple at a time
-        public IActionResult EditList(string SearchText = "", int pg = 1, int pageSize = 5)
+        public IActionResult EditList(string SearchText = "", int pg = 1, int pageSize = 20)
         {
             List<Kanban> kanbans;
 
@@ -221,6 +221,95 @@ namespace LabelStation.Controllers
             return View(kanban);
         }
 
+        // GET: Kanbans/ChangeMachine/5
+        public async Task<IActionResult> ChangeMachine(int? id)
+        {
+            if (id == null || _context.Kanban == null)
+            {
+                return NotFound();
+            }
+
+            var kanban = await _context.Kanban.FindAsync(id);
+            if (kanban == null)
+            {
+                return NotFound();
+            }
+
+            // Get list of distinct ParentSKUs
+            ViewBag.parent = new SelectList(_context.Kanban.Select(p => p.ParentSKU).Distinct().ToList(), kanban.ParentSKU);
+
+            // Get list of BOMIDs associated with the selected ParentSKU
+            ViewBag.bom = new SelectList(_context.Kanban.Where(p => p.ParentSKU == kanban.ParentSKU).Select(p => p.BOMID).Distinct().ToList(), kanban.BOMID);
+
+            // Get list of machines from the Machines table            
+            ViewBag.Machine = new SelectList(_context.Machines.ToList().OrderBy(m => m.MachineDepartment), "MachineNumber", "MachineNumber");
+
+            return View(kanban);
+        }
+
+        // POST: Kanbans/ChangeMachine/5
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ChangeMachine(int id, [Bind("ID,BOMID,ParentSKU,ParentDescription,MachineNumber,FullName,Print")] Kanban kanban)
+        {
+            if (id != kanban.ID)
+            {
+                return NotFound();
+            }
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    // Retrieve all Kanban entries that have the same ParentSKU and BOMID as the current entry
+                    var kanbansToUpdate = _context.Kanban
+                        .Where(p => p.ParentSKU == kanban.ParentSKU && p.BOMID == kanban.BOMID)
+                        .ToList();
+
+                    // Update properties for each matching record
+                    foreach (var item in kanbansToUpdate)
+                    {
+                        item.Print = kanban.Print;
+                        item.FullName = kanban.FullName;
+                        item.MachineNumber = kanban.MachineNumber;                        
+                    }
+
+                    // Save changes to all records
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!KanbanExists(kanban.ID))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                return RedirectToAction(nameof(Index));
+            }
+
+            // Re-populate ViewBags in case of validation errors
+            ViewBag.parent = new SelectList(_context.Kanban.Select(p => p.ParentSKU).Distinct().ToList(), kanban.ParentSKU);
+            ViewBag.bom = new SelectList(_context.Kanban.Where(p => p.ParentSKU == kanban.ParentSKU).Select(p => p.BOMID).Distinct().ToList(), kanban.BOMID);
+
+            return View(kanban);
+        }
+
+
+        public JsonResult GetBomByParentSKU(string parentSKU)
+        {
+            var bomItems = _context.Kanban
+                .Where(p => p.ParentSKU == parentSKU)
+                .Select(p => new { Value = p.BOMID, Text = p.BOMID })
+                .Distinct()
+                .ToList();
+
+            return Json(bomItems);
+        }
+
         // GET: Kanbans/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
@@ -237,7 +326,8 @@ namespace LabelStation.Controllers
             }
 
             return View(kanban);
-        }
+        }       
+
 
         // POST: Kanbans/Delete/5
         [HttpPost, ActionName("Delete")]

@@ -41,7 +41,7 @@ namespace LabelStation.Controllers
         }
 
         // GET: Associates
-        public IActionResult Index(string SearchText = "", int pg = 1, int pageSize = 5)
+        public IActionResult Index(string SearchText = "", int pg = 1, int pageSize = 20)
         {
             List<Associates> associates;
 

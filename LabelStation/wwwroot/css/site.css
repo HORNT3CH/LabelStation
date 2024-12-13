@@ -17,6 +17,46 @@ body {
   margin-bottom: 60px;
 }
 
+.main-content {
+    max-height: 90%;
+}
+
+
+.custom-table {
+    border: 1px solid #c0c0c0;
+}
+
+.custom-table thead th {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    background-color: #dfe3e8;
+    border: 1px solid #c0c0c0;
+    line-height: 1px;
+    font-weight: bold;
+}
+
+.custom-table tr a:hover {
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.custom-table tr {
+    font-size: 14px;
+}
+
+.custom-table td {
+    border: 1px solid #c0c0c0;
+}
+
+.custom-table tbody tr:nth-of-type(odd) {
+    background-color: #d1eaf0;
+}
+
+.custom-table tbody tr:nth-of-type(even) {
+    background-color: #fff;
+}
+
 .table td.fit,
 .table th.fit {
     white-space: nowrap;

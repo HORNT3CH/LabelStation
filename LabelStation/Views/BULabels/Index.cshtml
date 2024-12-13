@@ -20,56 +20,58 @@
 </p>
 
 <partial name="_pager" model="@pager" />
-
-<table class="table table-bordered table-striped w-auto">
-    <thead>
-        <tr>
-            <th class="fit">
-                Item Number
-            </th>
-            <th class="fit">
-                Item Description
-            </th>
-            <th class="fit">
-                Marked for Printing
-            </th>
-            <th class="fit">
-                Standard Case
-            </th>
-            <th class="fit">
-                Quantity
-            </th>
-            <th class="fit">
-                Action Buttons
-            </th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-                <td class="fit">
-                @Html.DisplayFor(modelItem => item.ItemNumber)
-            </td>
-                <td class="fit">
-                @Html.DisplayFor(modelItem => item.ItemDescription)
-            </td>
-                <td class="fit">
-                @Html.DisplayFor(modelItem => item.Print)
-            </td>
-                <td class="fit">
-                @Html.DisplayFor(modelItem => item.Standard)
-            </td>
-                <td class="fit">
-                @Html.DisplayFor(modelItem => item.Quantity)
-            </td>
-            <td class="fit">
-                <a class="btn btn-primary" asp-action="Edit" asp-route-id="@item.ID">Select to Print</a> |
-                <a class="btn btn-warning" asp-action="BackupReprint" asp-route-id="@item.ID">Reprint</a> |
-                    <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.ID">Delete</a>
-                @*<a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.ID">Delete</a>*@
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+<div class="table-responsive" style="max-height: 600px; overflow-y: auto;">
+    <table class="table table-bordered table-light table-striped m-auto custom-table text-dark">
+        <thead>
+            <tr>
+                <th class="fit">
+                    Item Number
+                </th>
+                <th class="fit">
+                    Item Description
+                </th>
+                <th class="fit">
+                    Marked for Printing
+                </th>
+                <th class="fit">
+                    Standard Case
+                </th>
+                <th class="fit">
+                    Quantity
+                </th>
+                <th class="fit">
+                    Action Buttons
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td class="fit">
+                        @Html.DisplayFor(modelItem => item.ItemNumber)
+                    </td>
+                    <td class="fit">
+                        @Html.DisplayFor(modelItem => item.ItemDescription)
+                    </td>
+                    <td class="fit">
+                        @Html.DisplayFor(modelItem => item.Print)
+                    </td>
+                    <td class="fit">
+                        @Html.DisplayFor(modelItem => item.Standard)
+                    </td>
+                    <td class="fit">
+                        @Html.DisplayFor(modelItem => item.Quantity)
+                    </td>
+                    <td class="fit">
+                        <a class="btn btn-sm btn-primary" asp-action="Edit" asp-route-id="@item.ID">Select to Print</a> |
+                        <a class="btn btn-sm btn-warning" asp-action="BackupReprint" asp-route-id="@item.ID">Reprint</a> |
+                        <a class="btn btn-sm btn-danger" asp-action="Delete" asp-route-id="@item.ID">Delete</a>
+                        @*<a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.ID">Delete</a>*@
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
 

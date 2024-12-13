@@ -27,80 +27,83 @@
     <a class="btn btn-primary" asp-action="Create">Add New Flower Pot</a>
 </p>
 <partial name="_pager" model="@pager" />
+<div class="table-responsive" style="max-height: 600px; overflow-y: auto;">
+    <table class="table table-bordered table-light table-striped m-auto custom-table text-dark">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.PotNumber)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.PotDescription)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ParentPartPacking)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.PartNumber)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.UPC)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Quantity)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Label)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Print)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.PrintQuantity)
+                </th>
+                <th>
+                    Actions
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PotNumber)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PotDescription)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ParentPartPacking)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PartNumber)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.UPC)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Quantity)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Label)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Print)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PrintQuantity)
+                    </td>
+                    <td>
+                        <a class="btn btn-sm btn-primary" asp-action="Edit" asp-route-id="@item.ID">Edit / Print</a> |
+                        <a class="btn btn-sm btn-warning" asp-action="Details" asp-route-id="@item.ID">Details</a>
+                        @*<a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.ID">Delete</a>*@
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
 
-<table class="table table-bordered table-striped w-auto">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.PotNumber)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.PotDescription)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ParentPartPacking)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.PartNumber)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.UPC)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Quantity)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Label)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Print)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.PrintQuantity)
-            </th>
-            <th>
-                Actions
-            </th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.PotNumber)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PotDescription)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ParentPartPacking)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PartNumber)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.UPC)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Quantity)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Label)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Print)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PrintQuantity)
-            </td>
-            <td>
-                <a class="btn btn-primary" asp-action="Edit" asp-route-id="@item.ID">Edit / Print</a> |
-                <a class="btn btn-warning" asp-action="Details" asp-route-id="@item.ID">Details</a>
-                @*<a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.ID">Delete</a>*@
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
 
 

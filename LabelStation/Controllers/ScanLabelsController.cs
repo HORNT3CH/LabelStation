@@ -41,7 +41,7 @@ namespace LabelStation.Controllers
         }            
 
         // GET: ScanLabels
-        public IActionResult Index(string SearchText = "", int pg = 1, int pageSize = 5)
+        public IActionResult Index(string SearchText = "", int pg = 1, int pageSize = 10)
         {
             List<ScanLabel> scanLabels;
 
@@ -129,7 +129,7 @@ namespace LabelStation.Controllers
         }
 
         // Get EditList for Scan Labels Print Multiple at a time
-        public IActionResult EditList(string SearchText = "", int pg = 1, int pageSize = 5)
+        public IActionResult EditList(string SearchText = "", int pg = 1, int pageSize = 20)
         {
             List<ScanLabel> scanLabel;
 
@@ -197,12 +197,17 @@ namespace LabelStation.Controllers
             {
                 return NotFound();
             }
+
+            // Remove the static path from ImageLocation for display in the edit view
+            if (!string.IsNullOrWhiteSpace(scanLabel.ImageLocation))
+            {
+                scanLabel.ImageLocation = scanLabel.ImageLocation.Replace(@"C:\ScanImages\", "");
+            }
+
             return View(scanLabel);
         }
 
         // POST: ScanLabels/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("ScanLabelId,ItemNumber,ItemDescription,PrintLabel,ImageLocation,CarryHeight,StackHeight")] ScanLabel scanLabel)
@@ -216,6 +221,12 @@ namespace LabelStation.Controllers
             {
                 try
                 {
+                    // Reapply the static path to ImageLocation before saving to the database
+                    if (!string.IsNullOrWhiteSpace(scanLabel.ImageLocation))
+                    {
+                        scanLabel.ImageLocation = @"\\10.216.255.32\share\SharedDatabases\Fleet\perfmodl\ScanImages\" + scanLabel.ImageLocation;
+                    }
+
                     _context.Update(scanLabel);
                     await _context.SaveChangesAsync();
                 }
@@ -232,6 +243,7 @@ namespace LabelStation.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+
             return View(scanLabel);
         }
 

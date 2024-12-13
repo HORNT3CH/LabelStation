@@ -1,0 +1,92 @@
+﻿@model LabelStation.Models.Kanban
+
+@{
+    ViewData["Title"] = "Change Machine For " + Model.BOMID;
+    Layout = "~/Views/Shared/_Layout_Hudson.cshtml";
+}
+<h1 class="mt-5">Change Machine & Print for <span class="text-danger">@Model.ItemNumber</span> BOM <span class="text-danger">@Model.BOMID</span></h1>
+<p>All you need to do is change the <span class="text-danger">Name</span>, <span class="text-danger">Machine Number</span> and set <span class="text-danger">Print to Yes!</span></p>
+<p>This will print every kanban label for the SKU <span class="fw-bold">@Model.ParentSKU</span></p>
+<div>
+    <a class="btn btn-secondary mt-2" asp-action="Index">Back to List</a>
+</div>
+
+<hr />
+
+<form asp-action="ChangeMachine">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <input type="hidden" asp-for="ID" />
+    <div class="row">
+        <div class="col-md-4">
+            <!-- ParentSKU Dropdown -->
+            <div class="form-group">
+                <label asp-for="ParentSKU" class="control-label">Parent Item Number</label>
+                <input asp-for="ParentSKU" class="form-control" readonly />
+                <span asp-validation-for="ParentSKU" class="text-danger"></span>
+            </div>
+            <!-- ParentDescription (Optional: Update dynamically if needed) -->
+            <div class="form-group">
+                <label asp-for="ParentDescription" class="control-label">Parent Item Description</label>
+                <input asp-for="ParentDescription" class="form-control" readonly />
+                <span asp-validation-for="ParentDescription" class="text-danger"></span>
+            </div>
+            <!-- BOMID Dropdown -->
+            <div class="form-group">
+                <label asp-for="BOMID" class="control-label">BOM Number</label>
+                @Html.DropDownListFor(model => model.BOMID, (SelectList)ViewBag.bom, "Select BOM", new { @class = "form-control", id = "bomDropdown" })
+                <span asp-validation-for="BOMID" class="text-danger"></span>
+            </div>
+            <!-- MachineNumber Dropdown -->
+            <div class="form-group">
+                <label asp-for="MachineNumber" class="control-label text-danger">Machine Number</label>
+                @Html.DropDownListFor(model => model.MachineNumber, (SelectList)ViewBag.Machine, "Select Machine", new { @class = "form-control" })
+                <span asp-validation-for="MachineNumber" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FullName" class="control-label">Full Name</label>
+                <input asp-for="FullName" class="form-control" />
+                <span asp-validation-for="FullName" class="text-danger"></span>
+            </div>
+            <!-- Print Dropdown -->
+            <div class="form-group">
+                <label asp-for="Print" class="control-label">Print</label>
+                <select asp-for="Print" class="form-control">
+                    <option value="">Select To Print</option>
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
+                </select>
+                <span asp-validation-for="Print" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save / Print" class="btn btn-primary mt-2" />
+            </div>
+        </div>
+        <div class="col-md-4"></div>
+        <div class="col-md-4"></div>
+    </div>
+</form>
+
+<!-- Include jQuery -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#parentSku').on('input', function () {
+            var selectedParentSKU = $(this).val();
+            $.ajax({
+                url: '@Url.Action("GetBomByParentSKU", "Kanbans")', // Replace "Kanbans" with your controller name if different
+                data: { parentSKU: selectedParentSKU },
+                success: function (data) {
+                    var bomDropdown = $('#bomDropdown');
+                    bomDropdown.empty(); // Clear previous options
+                    bomDropdown.append($('<option>').val('').text('Select BOM'));
+
+                    // Populate BOM dropdown with filtered items
+                    $.each(data, function (index, item) {
+                        bomDropdown.append($('<option>').val(item.Value).text(item.Text));
+                    });
+                }
+            });
+        });
+    });
+</script>
+

@@ -15,5 +15,7 @@ namespace LabelStation.Data
         }
 
         public DbSet<LabelStation.Models.Kanban> Kanban { get; set; } = default!;
+
+        public DbSet<LabelStation.Models.Machines> Machines { get; set; } = default!;
     }
 }
